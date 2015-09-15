@@ -1,0 +1,190 @@
+html
+{
+    height: 100%;
+    overflow: hidden;
+}
+
+.logo {
+    position: relative;
+	background-image: url('images/barrimason-logo.gif');
+	width:100%;
+	height:112px;
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-color: #42262A;
+}
+
+.logo-fadein {
+    position: relative;
+	background-image: url('images/barrimason-logo-fadein.gif');
+	width:100%;
+	height:112px;
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-color: #42262A;
+}
+
+.navbar {
+    position: relative;
+	background-image: url('images/shadow.jpg');
+	text-align: center;
+	width:100%;
+	height:84px;
+	background-repeat: repeat-x;
+	background-position: top center;
+	clear: left;
+	overflow: hidden;
+}
+
+.content-frame {
+    position: fixed;
+    opacity: 0;
+	width: 0px;
+	height: 0px;
+	overflow: auto;
+
+	background-color: #1b1600;
+
+    -webkit-transition: opacity 0.3s ease-in ;
+       -moz-transition: opacity 0.3s ease-in;
+        -ms-transition: opacity 0.3s ease-in;
+         -o-transition: opacity 0.3s ease-in;
+            transition: opacity 0.3s ease-in;
+
+}
+
+.content-frame.active {
+    opacity: 1;
+	height: 100%;
+	width: 100%;
+}
+
+.topbar {
+    position: relative;
+	width:100%;
+	height:196px;
+	background-repeat: repeat-x;
+	background-position: top center;
+	clear: left;
+	overflow: hidden;
+}
+
+
+.brief {
+    position: fixed;
+	text-align: left;
+	width: calc(15% - 40px);
+	color: #FFFFCC;
+	background: none;
+	overflow: auto;
+	margin: 45px 20px 45px 20px;
+	padding: 0px;
+	padding-bottom: 15px;
+	font-family: Tahoma, Geneva, sans-serif;
+	float: left;
+	display: block;
+	background-color: rgba(66,38,42,0.3);
+	border-radius: 20px;
+}
+
+.brief h1 {
+    padding: 5px;
+    margin: 0;
+    padding-left: 15px;
+    border-bottom: 3px solid #1b1600;
+}
+
+.brief p {
+    padding: 8px 20px 8px 20px;
+    margin: 0;
+    font-size: small;
+    line-height: 180%;
+}
+
+.navlink {
+    cursor: pointer;
+}
+
+.navlinkImage {
+    display: none;
+}
+
+.content {
+    position: relative;
+	text-align: left;
+	width: calc(85% - 50px);
+	height: calc(100% - 246px);
+	color: #FFFFCC;
+	background: none;
+	overflow: auto;
+	margin: 0px;
+	padding: 25px;
+	font-family: Tahoma, Geneva, sans-serif;
+	float: right;
+	display: block;
+}
+
+.video {
+    position: relative;
+	float: left;
+	clear: both;
+	margin: 0px;
+	border: 1px solid #222200;
+	display: block;
+}
+
+.photo {
+	margin: 0px;
+	border: 1px solid #222200;
+	box-shadow: 2px 2px 4px black;
+}
+
+h1 {
+    font-weight: bold;
+	font-size: x-large;
+	border-bottom: 1px solid white;
+	//font-family: Tahoma, Geneva, sans-serif;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: italic;
+}
+
+h2 {
+    font-weight: bold;
+	font-size: large;
+	//font-family: Tahoma, Geneva, sans-serif;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: italic;
+	margin-bottom: -15px;
+}
+
+body {
+    position: relative;
+	background-position: center top;
+	background-repeat: repeat-x;
+	font-size: medium;
+	line-height: 190%;
+	background-color: #1b1600;
+	margin: 0px;
+	height: 100%;
+}
+
+p {
+    clear: left;
+    margin-left: 10px;
+}
+
+a:link {
+    color: #cccc33;
+}
+
+a:visited {
+    color: #999933;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:active {
+    color: red;
+}
