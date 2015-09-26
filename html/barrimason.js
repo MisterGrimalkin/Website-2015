@@ -2,18 +2,18 @@ var PAGE_NAMES = "musician,writer,coder";
 
 function onLoad() {
 
-    setupPages(PAGE_NAMES);
+//    setupPages(PAGE_NAMES);
 
-    preloadImages();
+//    preloadImages();
 
     // Link mouse interaction
-    repeatForAllPages(function(i,n) {
-        var link = document.getElementById("link"+i);
-        link.onclick= bindFunction(displayPage, i);
-        link.onmouseover = bindFunction(navMouseover, i);
-        link.onmouseout = bindFunction(navMouseout, i);
-        link.onmousedown = navMousedown;
-    });
+//    repeatForAllPages(function(i,n) {
+//        var link = document.getElementById("link"+i);
+//        link.onclick= bindFunction(displayPage, i);
+//        link.onmouseover = bindFunction(navMouseover, i);
+//        link.onmouseout = bindFunction(navMouseout, i);
+//        link.onmousedown = navMousedown;
+//    });
 
     var timeout = 0;
     var pageToLoad = 0;
@@ -25,37 +25,126 @@ function onLoad() {
     }
 
     if ( page ) {
+        onSelect(page);
+        navigateTo(page);
+        timeout = 2000;
 
-        // Specified page, no fade-in
-        document.getElementById("logo").className = "logo";
-        repeatForAllPages(function(i,n) {
-            var img = document.getElementById("linkImage"+i);
-            img.src="images/"+n+".gif";
-            img.style.display = "inline";
-        });
-        pageToLoad = getPageNumber(page);
+//        // Specified page, no fade-in
+//        document.getElementById("logo").className = "logo";
+//        repeatForAllPages(function(i,n) {
+//            var img = document.getElementById("linkImage"+i);
+//            img.src="images/"+n+".gif";
+//            img.style.display = "inline";
+//        });
+//        pageToLoad = getPageNumber(page);
 
     } else {
 
         // Root page, fade-in
-        document.getElementById("logo").className = "logo-fadein";
-        repeatForAllPages(function(i,n) {
-            var img = document.getElementById("linkImage"+i);
-            img.src="images/"+n+"-fadein.gif";
-            img.style.display = "inline";
-        });
-	    timeout = 5000;
+//        document.getElementById("logo").className = "logo-fadein";
+//        repeatForAllPages(function(i,n) {
+//            var img = document.getElementById("linkImage"+i);
+//            img.src="images/"+n+"-fadein.gif";
+//            img.style.display = "inline";
+//        });
+//	    timeout = 5000;
 
     }
 
     // Load content and open specified page
     setTimeout(function() {
         preloadContent();
-        if ( pages[pageToLoad] ) {
-            displayPage(pageToLoad);
-        }
+//        if ( pages[pageToLoad] ) {
+//            displayPage(pageToLoad);
+//        }
     }, timeout);
 
+}
+
+function triggerLogoAnimation() {
+    document.getElementById("logo").src = "images/barrimason-logo-fadein.gif";
+}
+
+function cancelLogoAnimation() {
+    document.getElementById("logo").src = "images/barrimason-logo.gif";
+}
+
+function getName(side) {
+    var name;
+    if ( side==="left" ) {
+        name = "musician";
+    }
+    if ( side==="right" ) {
+        name = "coder";
+    }
+    return name;
+}
+
+function onOver(side) {
+    if ( side!==currentSide ) {
+        document.getElementById("link-" + side).src = "images/" + getName(side) + "-over.gif";
+    }
+}
+
+function onOut(side) {
+    if ( side!==currentSide ) {
+        document.getElementById("link-" + side).src = "images/" + getName(side) + "-out.gif";
+    }
+}
+
+function onSelect(side) {
+    if ( side!==currentSide ) {
+        document.getElementById("link-" + side).src = "images/" + getName(side) + "-selected.gif";
+    }
+}
+
+var currentSide = "";
+
+function navigateTo(side) {
+
+    var leftContentStyle = "content-frame inactive";
+    var rightContentStyle = "content-frame inactive";
+
+    var leftPicStyle = "sidebar left";
+    var rightPicStyle = "sidebar right";
+
+    var leftLinkStyle = "navlink left";
+    var rightLinkStyle = "navlink right";
+
+
+    if ( side!==currentSide ) {
+        if ( currentSide!=="" ) {
+            document.getElementById("link-" + currentSide).src = "images/" + getName(currentSide) + "-out.gif";
+        }
+        if ( side==="left") {
+            leftLinkStyle = "navlink left active";
+            leftPicStyle = "sidebar left active";
+            leftContentStyle = "content-frame active left";
+        }
+        if ( side==="right" ) {
+            rightLinkStyle = "navlink right active";
+            rightPicStyle = "sidebar right active";
+            rightContentStyle = "content-frame active right";
+        }
+    } else {
+        side = "";
+    }
+    if ( side==="" ) {
+        document.getElementById("navbar").className = "navbar";
+    } else {
+        document.getElementById("navbar").className = "navbar active";
+    }
+
+    document.getElementById("content-left").className = leftContentStyle;
+    document.getElementById("content-right").className = rightContentStyle;
+
+    document.getElementById("link-left").className = leftLinkStyle;
+    document.getElementById("link-right").className = rightLinkStyle;
+
+    document.getElementById("pic-left").className = leftPicStyle;
+    document.getElementById("pic-right").className = rightPicStyle;
+
+    currentSide = side;
 }
 
 
@@ -150,9 +239,12 @@ function preloadImages() {
 
 function preloadContent() {
     if ( !contentLoaded ) {
-	    repeatForAllPages(function(i,n) {
-            document.getElementById("content"+i).src = n+".html";
-        });
+//	    repeatForAllPages(function(i,n) {
+//            document.getElementById("content"+i).src = n+".html";
+//        });
+        document.getElementById("content-left").src="musician.html";
+        document.getElementById("content-right").src="coder.html";
+
         contentLoaded = true;
     }
 }

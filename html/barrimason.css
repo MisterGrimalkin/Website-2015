@@ -24,39 +24,143 @@ html
 	background-color: #42262A;
 }
 
+.navlink {
+    position: relative;
+}
+
+.navlink.right {
+    margin-right: calc(50% - 200px);
+    float: right;
+
+    -webkit-transition: margin-right 0.5s ease ;
+       -moz-transition: margin-right 0.5s ease;
+        -ms-transition: margin-right 0.5s ease;
+         -o-transition: margin-right 0.5s ease;
+            transition: margin-right 0.5s ease;
+}
+
+.navlink.left {
+    margin-left: calc(50% - 200px);
+    float: left;
+
+    -webkit-transition: margin-left 0.5s ease ;
+       -moz-transition: margin-left 0.5s ease;
+        -ms-transition: margin-left 0.5s ease;
+         -o-transition: margin-left 0.5s ease;
+            transition: margin-left 0.5s ease;
+}
+
+.navlink.left.active {
+    margin-left: 0px;
+    -webkit-transition: margin-left 0.5s ease ;
+       -moz-transition: margin-left 0.5s ease;
+        -ms-transition: margin-left 0.5s ease;
+         -o-transition: margin-left 0.5s ease;
+            transition: margin-left 0.5s ease;
+
+}
+.navlink.right.active {
+    margin-right: 0px;
+    -webkit-transition: margin-right 0.5s ease ;
+       -moz-transition: margin-right 0.5s ease;
+        -ms-transition: margin-right 0.5s ease;
+         -o-transition: margin-right 0.5s ease;
+            transition: margin-right 0.5s ease;
+
+}
+
 .navbar {
     position: relative;
-	background-image: url('images/shadow.jpg');
-	text-align: center;
+	text-align: left;
 	width:100%;
-	height:84px;
+	height:60px;
 	background-repeat: repeat-x;
 	background-position: top center;
 	clear: left;
 	overflow: hidden;
+	border-bottom: none;
+    -webkit-transition: border-bottom 0.5s ease ;
+       -moz-transition: border-bottom 0.5s ease;
+        -ms-transition: border-bottom 0.5s ease;
+         -o-transition: border-bottom 0.5s ease;
+            transition: border-bottom 0.5s ease;
+}
+
+.navbar.active {
+    border-bottom: 1px solid white;
+    -webkit-transition: border-bottom 0.5s ease ;
+       -moz-transition: border-bottom 0.5s ease;
+        -ms-transition: border-bottom 0.5s ease;
+         -o-transition: border-bottom 0.5s ease;
+            transition: border-bottom 0.5s ease;
+}
+
+.sidebar {
+    width: 0px;
+    margin: 10px;
+    overflow: hidden;
+    -webkit-transition: width 0.5s ease ;
+       -moz-transition: width 0.5s ease;
+        -ms-transition: width 0.5s ease;
+         -o-transition: width 0.5s ease;
+            transition: width 0.5s ease;
+}
+
+.sidebar.left {
+    float: left;
+}
+
+.sidebar.left.active {
+    width: 200px;
+}
+
+.sidebar.right {
+    text-align: left;
+    float: right;
+}
+
+.sidebar.right.active {
+    width: 200px;
 }
 
 .content-frame {
-    position: fixed;
+    position: relative;
     opacity: 0;
 	width: 0px;
 	height: 0px;
+	margin: 0px;
 	overflow: auto;
 
-	background-color: #1b1600;
+	background-color: black;
+	color: white;
+}
 
-    -webkit-transition: opacity 0.3s ease-in ;
-       -moz-transition: opacity 0.3s ease-in;
-        -ms-transition: opacity 0.3s ease-in;
-         -o-transition: opacity 0.3s ease-in;
-            transition: opacity 0.3s ease-in;
-
+.content-frame.inactive {
+    opacity: 0;
+    -webkit-transition: opacity 1s ease;
+       -moz-transition: opacity 1s ease;
+        -ms-transition: opacity 1s ease;
+         -o-transition: opacity 1s ease;
+            transition: opacity 1s ease;
 }
 
 .content-frame.active {
     opacity: 1;
 	height: 100%;
-	width: 100%;
+	width: calc(100% - 240px);
+    -webkit-transition: opacity 2s ease;
+       -moz-transition: opacity 2s ease;
+        -ms-transition: opacity 2s ease;
+         -o-transition: opacity 2s ease;
+            transition: opacity 2s ease;
+}
+
+.content-frame.active.left {
+    float:right;
+}
+
+.content-frame.active.right {
+    float:left;
 }
 
 .topbar {
@@ -71,7 +175,7 @@ html
 
 
 .brief {
-    position: fixed;
+    position: relative;
 	text-align: left;
 	width: calc(15% - 40px);
 	color: #FFFFCC;
@@ -163,9 +267,10 @@ body {
 	background-repeat: repeat-x;
 	font-size: medium;
 	line-height: 190%;
-	background-color: #1b1600;
+	background-color: black;
 	margin: 0px;
 	height: 100%;
+	color: white;
 }
 
 p {

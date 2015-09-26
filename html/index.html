@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head lang="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta charset="UTF-8">
-    <meta name="robots" content="index, follow">
-
-    <title>Barri Mason - Musician, Writer and Coder</title>
-
+    <title>Barri Mason</title>
     <link rel="stylesheet" type="text/css" href="barrimason.css">
 
     <script src="barrimason.js"></script>
@@ -16,35 +11,39 @@
 
 <body onload="onLoad();">
 
-    <a href="/" target="_parent" onclick="setCookie('page','');">
-        <div id="logo" class="logo-fadein"></div>
-    </a>
-
-    <div class="navbar">
-        <a id="link1" class="navlink">
-            <img id="linkImage1" class="navlinkImage" border="0" alt="">
-        </a>
-        <a id="link2" class="navlink">
-            <img id="linkImage2" class="navlinkImage" border="0" alt="">
-        </a>
-        <a id="link3" class="navlink">
-            <img id="linkImage3" class="navlinkImage" border="0" alt="">
-        </a>
+    <div style="text-align: center; width: 100%; height: 80px; margin: 0px; padding: 0px;">
+        <img
+                onclick="navigateTo('');"
+                onmouseover="triggerLogoAnimation();"
+                onmouseout="cancelLogoAnimation();"
+                id="logo" src="images/barrimason-logo.gif" height="80"/>
     </div>
 
-    <div style="height:100%;">
-        <iframe id="content1" class="content-frame" frameborder="0"></iframe>
-        <iframe id="content2" class="content-frame" frameborder="0"></iframe>
-        <iframe id="content3" class="content-frame" frameborder="0"></iframe>
+    <div class="navbar" id="navbar">
+        <img
+                onmouseover="onOver('left');"
+                onmouseout="onOut('left');"
+                onmousedown="onSelect('left');"
+                onclick="navigateTo('left');"
+                id="link-left" class="navlink left" src="images/musician.gif" height="60" border="0" alt="">
+        <img
+                onmouseover="onOver('right');"
+                onmouseout="onOut('right');"
+                onmousedown="onSelect('right');"
+                onclick="navigateTo('right');"
+             id="link-right" class="navlink right" src="images/coder.gif" height="60" border="0" alt="">
+    </div>
+    <div id="pic-left" class="sidebar left" >
+        <img src="images/left-pic.png" style="float: right;" width="200" height="200"/>
     </div>
 
-    <div id="robotFriendlyLinks" style="display: none;">
-        <h1>Barri Mason</h1>
-        <a href="musician.html">Musician, Pianist, Keyboardist, Producer</a>
-        <a href="writer.html">Writer, Author</a>
-        <a href="coder.html">Coder, Software Developer, Programmer</a>
+    <div id="pic-right" class="sidebar right" >
+        <img src="images/right-pic.png" width="200" height="200"/>
     </div>
+
+    <iframe id="content-left" class="content-frame" frameborder="0"></iframe>
+    <iframe id="content-right" class="content-frame" frameborder="0"></iframe>
+
 
 </body>
-
 </html>
