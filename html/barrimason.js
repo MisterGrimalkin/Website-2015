@@ -27,7 +27,7 @@ function onLoad() {
     if ( page ) {
         onSelect(page);
         navigateTo(page);
-        timeout = 2000;
+        timeout = 0;
 
 //        // Specified page, no fade-in
 //        document.getElementById("logo").className = "logo";
@@ -127,6 +127,7 @@ function navigateTo(side) {
             rightContentStyle = "content-frame active right";
         }
     } else {
+        document.getElementById("link-" + currentSide).src = "images/" + getName(currentSide) + "-out.gif";
         side = "";
     }
     if ( side==="" ) {

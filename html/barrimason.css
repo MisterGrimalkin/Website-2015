@@ -29,7 +29,7 @@ html
 }
 
 .navlink.right {
-    margin-right: calc(50% - 200px);
+    margin-right: calc(50% - 300px);
     float: right;
 
     -webkit-transition: margin-right 0.5s ease ;
@@ -40,7 +40,7 @@ html
 }
 
 .navlink.left {
-    margin-left: calc(50% - 200px);
+    margin-left: calc(50% - 300px);
     float: left;
 
     -webkit-transition: margin-left 0.5s ease ;
@@ -59,6 +59,7 @@ html
             transition: margin-left 0.5s ease;
 
 }
+
 .navlink.right.active {
     margin-right: 0px;
     -webkit-transition: margin-right 0.5s ease ;
@@ -73,6 +74,7 @@ html
     position: relative;
 	text-align: left;
 	width:100%;
+	margin-top: 20px;
 	height:60px;
 	background-repeat: repeat-x;
 	background-position: top center;
@@ -97,7 +99,7 @@ html
 
 .sidebar {
     width: 0px;
-    margin: 10px;
+    margin: 0px;
     overflow: hidden;
     -webkit-transition: width 0.5s ease ;
        -moz-transition: width 0.5s ease;
@@ -111,7 +113,7 @@ html
 }
 
 .sidebar.left.active {
-    width: 200px;
+    width: 300px;
 }
 
 .sidebar.right {
@@ -120,7 +122,7 @@ html
 }
 
 .sidebar.right.active {
-    width: 200px;
+    width: 300px;
 }
 
 .content-frame {
@@ -147,7 +149,7 @@ html
 .content-frame.active {
     opacity: 1;
 	height: 100%;
-	width: calc(100% - 240px);
+	width: calc(100% - 300px);
     -webkit-transition: opacity 2s ease;
        -moz-transition: opacity 2s ease;
         -ms-transition: opacity 2s ease;
@@ -213,28 +215,58 @@ html
     display: none;
 }
 
+.subnavlink {
+	border: 1px solid white;
+    width: 200px;
+    height: 150px;
+    background-image: url("images/left-pic.png");
+    margin: 15px;
+    padding: 10px;
+    clear: none;
+    display: inline-block;
+    text-align: center;
+    font-size: x-large;
+    padding-top: 50px;
+    color: black;
+    font-weight: bold;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.subnav a {
+    opacity: 0.6;
+    text-decoration: none;
+}
+
+.subnav a:hover {
+    opacity: 1;
+}
+
 .content {
     position: relative;
 	text-align: left;
-	width: calc(85% - 50px);
-	height: calc(100% - 246px);
+	width: calc(100% - 50px);
+	height: calc(100% - 190px);
 	color: #FFFFCC;
 	background: none;
 	overflow: auto;
 	margin: 0px;
 	padding: 25px;
+	padding-top: 5px;
 	font-family: Tahoma, Geneva, sans-serif;
-	float: right;
+	float: left;
 	display: block;
 }
 
 .video {
     position: relative;
 	float: left;
-	clear: both;
+	//clear: both;
 	margin: 0px;
 	border: 1px solid #222200;
-	display: block;
+	display: inline-block;
+	text-align: center;
+	font-size: small;
+	margin: 10px;
 }
 
 .photo {
@@ -246,7 +278,7 @@ html
 h1 {
     font-weight: bold;
 	font-size: x-large;
-	border-bottom: 1px solid white;
+	//border-bottom: 1px solid white;
 	//font-family: Tahoma, Geneva, sans-serif;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
