@@ -136,6 +136,17 @@ function navigateTo(side) {
         document.getElementById("navbar").className = "navbar active";
     }
 
+    if ( side==="left" ) {
+        document.getElementById("link-right").style.opacity = 0.2;
+        document.getElementById("link-left").style.opacity = 1;
+    }
+    else if ( side==="right" ) {
+        document.getElementById("link-left").style.opacity = 0.2;
+        document.getElementById("link-right").style.opacity = 1;
+    } else {
+        document.getElementById("link-left").style.opacity = 1;
+        document.getElementById("link-right").style.opacity = 1;
+    }
     document.getElementById("content-left").className = leftContentStyle;
     document.getElementById("content-right").className = rightContentStyle;
 
@@ -146,6 +157,8 @@ function navigateTo(side) {
     document.getElementById("pic-right").className = rightPicStyle;
 
     currentSide = side;
+
+
 }
 
 

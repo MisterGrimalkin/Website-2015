@@ -219,17 +219,17 @@ html
 	border: 1px solid white;
     width: 200px;
     height: 150px;
-    background-image: url("images/left-pic.png");
+    background-image: url("images/coder_projects.jpg");
     margin: 15px;
     padding: 10px;
     clear: none;
     display: inline-block;
     text-align: center;
     font-size: x-large;
-    padding-top: 50px;
+    padding-top: 60px;
     color: black;
     font-weight: bold;
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	//font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 .subnav a {
@@ -282,6 +282,7 @@ h1 {
 	//font-family: Tahoma, Geneva, sans-serif;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
+    margin-left: 10px;
 }
 
 h2 {
@@ -291,6 +292,7 @@ h2 {
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
 	margin-bottom: -15px;
+    margin-left: 0px;
 }
 
 body {
@@ -307,7 +309,7 @@ body {
 
 p {
     clear: left;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 a:link {
