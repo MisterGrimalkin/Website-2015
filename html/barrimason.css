@@ -4,71 +4,20 @@ html
     overflow: hidden;
 }
 
+
+/* Logo Bar */
+
 .logo {
-    position: relative;
-	background-image: url('images/barrimason-logo.gif');
-	width:100%;
-	height:112px;
-	background-position: top center;
-	background-repeat: no-repeat;
-	background-color: #42262A;
+    text-align: center;
+    width: 100%;
+    height: 80px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
 }
 
-.logo-fadein {
-    position: relative;
-	background-image: url('images/barrimason-logo-fadein.gif');
-	width:100%;
-	height:112px;
-	background-position: top center;
-	background-repeat: no-repeat;
-	background-color: #42262A;
-}
 
-.navlink {
-    position: relative;
-}
-
-.navlink.right {
-    margin-right: calc(50% - 300px);
-    float: right;
-
-    -webkit-transition: margin-right 0.5s ease ;
-       -moz-transition: margin-right 0.5s ease;
-        -ms-transition: margin-right 0.5s ease;
-         -o-transition: margin-right 0.5s ease;
-            transition: margin-right 0.5s ease;
-}
-
-.navlink.left {
-    margin-left: calc(50% - 300px);
-    float: left;
-
-    -webkit-transition: margin-left 0.5s ease ;
-       -moz-transition: margin-left 0.5s ease;
-        -ms-transition: margin-left 0.5s ease;
-         -o-transition: margin-left 0.5s ease;
-            transition: margin-left 0.5s ease;
-}
-
-.navlink.left.active {
-    margin-left: 0px;
-    -webkit-transition: margin-left 0.5s ease ;
-       -moz-transition: margin-left 0.5s ease;
-        -ms-transition: margin-left 0.5s ease;
-         -o-transition: margin-left 0.5s ease;
-            transition: margin-left 0.5s ease;
-
-}
-
-.navlink.right.active {
-    margin-right: 0px;
-    -webkit-transition: margin-right 0.5s ease ;
-       -moz-transition: margin-right 0.5s ease;
-        -ms-transition: margin-right 0.5s ease;
-         -o-transition: margin-right 0.5s ease;
-            transition: margin-right 0.5s ease;
-
-}
+/* Navigation  Bar */
 
 .navbar {
     position: relative;
@@ -97,6 +46,57 @@ html
             transition: border-bottom 0.5s ease;
 }
 
+
+/* Navigation Links */
+
+.navlink {
+    position: relative;
+    cursor: pointer;
+}
+
+.navlink.right {
+    margin-right: calc(50% - 300px);
+    float: right;
+    -webkit-transition: margin-right 0.5s ease ;
+       -moz-transition: margin-right 0.5s ease;
+        -ms-transition: margin-right 0.5s ease;
+         -o-transition: margin-right 0.5s ease;
+            transition: margin-right 0.5s ease;
+}
+
+.navlink.left {
+    margin-left: calc(50% - 300px);
+    float: left;
+    -webkit-transition: margin-left 0.5s ease ;
+       -moz-transition: margin-left 0.5s ease;
+        -ms-transition: margin-left 0.5s ease;
+         -o-transition: margin-left 0.5s ease;
+            transition: margin-left 0.5s ease;
+}
+
+.navlink.left.active {
+    margin-left: 0px;
+    -webkit-transition: margin-left 0.5s ease ;
+       -moz-transition: margin-left 0.5s ease;
+        -ms-transition: margin-left 0.5s ease;
+         -o-transition: margin-left 0.5s ease;
+            transition: margin-left 0.5s ease;
+
+}
+
+.navlink.right.active {
+    margin-right: 0px;
+    -webkit-transition: margin-right 0.5s ease ;
+       -moz-transition: margin-right 0.5s ease;
+        -ms-transition: margin-right 0.5s ease;
+         -o-transition: margin-right 0.5s ease;
+            transition: margin-right 0.5s ease;
+
+}
+
+
+/* Sidebar Picture */
+
 .sidebar {
     width: 0px;
     margin: 0px;
@@ -112,6 +112,10 @@ html
     float: left;
 }
 
+.sidebar.left img {
+    float: right;
+}
+
 .sidebar.left.active {
     width: 300px;
 }
@@ -124,6 +128,9 @@ html
 .sidebar.right.active {
     width: 300px;
 }
+
+
+/* Content Frame */
 
 .content-frame {
     position: relative;
@@ -163,52 +170,6 @@ html
 
 .content-frame.active.right {
     float:left;
-}
-
-.topbar {
-    position: relative;
-	width:100%;
-	height:196px;
-	background-repeat: repeat-x;
-	background-position: top center;
-	clear: left;
-	overflow: hidden;
-}
-
-
-.brief {
-    position: relative;
-	text-align: left;
-	width: calc(15% - 40px);
-	color: #FFFFCC;
-	background: none;
-	overflow: auto;
-	margin: 45px 20px 45px 20px;
-	padding: 0px;
-	padding-bottom: 15px;
-	font-family: Tahoma, Geneva, sans-serif;
-	float: left;
-	display: block;
-	background-color: rgba(66,38,42,0.3);
-	border-radius: 20px;
-}
-
-.brief h1 {
-    padding: 5px;
-    margin: 0;
-    padding-left: 15px;
-    border-bottom: 3px solid #1b1600;
-}
-
-.brief p {
-    padding: 8px 20px 8px 20px;
-    margin: 0;
-    font-size: small;
-    line-height: 180%;
-}
-
-.navlink {
-    cursor: pointer;
 }
 
 .navlinkImage {

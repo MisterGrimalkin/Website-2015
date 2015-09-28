@@ -1,50 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Barri Mason</title>
-    <link rel="stylesheet" type="text/css" href="barrimason.css">
 
+<head lang="en">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <base target="_blank">
+
+    <title>Barri Mason</title>
+
+    <link rel="stylesheet" type="text/css" href="barrimason.css">
     <script src="barrimason.js"></script>
 
 </head>
 
 <body onload="onLoad();">
 
-    <div style="text-align: center; width: 100%; height: 80px; margin: 0px; padding: 0px;">
+    <div class="logo">
         <img
+                id="logo" src="images/barrimason-logo.gif"
                 onclick="navigateTo('');"
                 onmouseover="triggerLogoAnimation();"
                 onmouseout="cancelLogoAnimation();"
-                id="logo" src="images/barrimason-logo.gif" height="80"/>
+                height="80"/>
     </div>
 
     <div class="navbar" id="navbar">
         <img
+                id="link-left" class="navlink left" src="images/musician.gif"
                 onmouseover="onOver('left');"
                 onmouseout="onOut('left');"
                 onmousedown="onSelect('left');"
                 onclick="navigateTo('left');"
-                id="link-left" class="navlink left" src="images/musician.gif" 
 				border="0" alt="">
         <img
+                id="link-right" class="navlink right" src="images/coder.gif"
                 onmouseover="onOver('right');"
                 onmouseout="onOut('right');"
                 onmousedown="onSelect('right');"
                 onclick="navigateTo('right');"
-             id="link-right" class="navlink right" src="images/coder.gif" border="0" alt="">
+                border="0" alt="">
     </div>
+
     <div id="pic-left" class="sidebar left" >
-        <img src="images/left-pic.png" style="float: right;"/>
+        <img src="images/left-pic.png"/>
     </div>
 
     <div id="pic-right" class="sidebar right" >
         <img src="images/right-pic.png"/>
     </div>
 
-    <iframe id="content-left" class="content-frame" frameborder="0"></iframe>
-    <iframe id="content-right" class="content-frame" frameborder="0"></iframe>
-
+    <iframe id="content-left" class="content-frame" src="musician.html" frameborder="0"></iframe>
+    <iframe id="content-right" class="content-frame" src="coder.html" frameborder="0"></iframe>
 
 </body>
+
 </html>

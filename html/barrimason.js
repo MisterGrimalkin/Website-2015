@@ -1,72 +1,14 @@
-var PAGE_NAMES = "musician,writer,coder";
-
 function onLoad() {
 
-//    setupPages(PAGE_NAMES);
+    preloadImages();
 
-//    preloadImages();
-
-    // Link mouse interaction
-//    repeatForAllPages(function(i,n) {
-//        var link = document.getElementById("link"+i);
-//        link.onclick= bindFunction(displayPage, i);
-//        link.onmouseover = bindFunction(navMouseover, i);
-//        link.onmouseout = bindFunction(navMouseout, i);
-//        link.onmousedown = navMousedown;
-//    });
-
-    var timeout = 0;
-    var pageToLoad = 0;
-
-    // Get page from URL or from Cookie
+    // Get side from URL
     var page = getQueryString().page;
-    if ( !page ) {
-        page = getCookie("page");
-    }
-
     if ( page ) {
         onSelect(page);
         navigateTo(page);
-        timeout = 0;
-
-//        // Specified page, no fade-in
-//        document.getElementById("logo").className = "logo";
-//        repeatForAllPages(function(i,n) {
-//            var img = document.getElementById("linkImage"+i);
-//            img.src="images/"+n+".gif";
-//            img.style.display = "inline";
-//        });
-//        pageToLoad = getPageNumber(page);
-
-    } else {
-
-        // Root page, fade-in
-//        document.getElementById("logo").className = "logo-fadein";
-//        repeatForAllPages(function(i,n) {
-//            var img = document.getElementById("linkImage"+i);
-//            img.src="images/"+n+"-fadein.gif";
-//            img.style.display = "inline";
-//        });
-//	    timeout = 5000;
-
     }
 
-    // Load content and open specified page
-    setTimeout(function() {
-        preloadContent();
-//        if ( pages[pageToLoad] ) {
-//            displayPage(pageToLoad);
-//        }
-    }, timeout);
-
-}
-
-function triggerLogoAnimation() {
-    document.getElementById("logo").src = "images/barrimason-logo-fadein.gif";
-}
-
-function cancelLogoAnimation() {
-    document.getElementById("logo").src = "images/barrimason-logo.gif";
 }
 
 function getName(side) {
@@ -78,6 +20,17 @@ function getName(side) {
         name = "coder";
     }
     return name;
+}
+
+
+// Animations and Rollovers
+
+function triggerLogoAnimation() {
+    document.getElementById("logo").src = "images/barrimason-logo-animation.gif";
+}
+
+function cancelLogoAnimation() {
+    document.getElementById("logo").src = "images/barrimason-logo.gif";
 }
 
 function onOver(side) {
@@ -98,6 +51,9 @@ function onSelect(side) {
     }
 }
 
+
+// Navigation
+
 var currentSide = "";
 
 function navigateTo(side) {
@@ -105,17 +61,17 @@ function navigateTo(side) {
     var leftContentStyle = "content-frame inactive";
     var rightContentStyle = "content-frame inactive";
 
-    var leftPicStyle = "sidebar left";
-    var rightPicStyle = "sidebar right";
-
     var leftLinkStyle = "navlink left";
     var rightLinkStyle = "navlink right";
 
+    var leftPicStyle = "sidebar left";
+    var rightPicStyle = "sidebar right";
+
+    if ( currentSide!=="" ) {
+        document.getElementById("link-" + currentSide).src = "images/" + getName(currentSide) + "-out.gif";
+    }
 
     if ( side!==currentSide ) {
-        if ( currentSide!=="" ) {
-            document.getElementById("link-" + currentSide).src = "images/" + getName(currentSide) + "-out.gif";
-        }
         if ( side==="left") {
             leftLinkStyle = "navlink left active";
             leftPicStyle = "sidebar left active";
@@ -127,140 +83,55 @@ function navigateTo(side) {
             rightContentStyle = "content-frame active right";
         }
     } else {
-        document.getElementById("link-" + currentSide).src = "images/" + getName(currentSide) + "-out.gif";
         side = "";
-    }
-    if ( side==="" ) {
-        document.getElementById("navbar").className = "navbar";
-    } else {
-        document.getElementById("navbar").className = "navbar active";
     }
 
     if ( side==="left" ) {
-        document.getElementById("link-right").style.opacity = 0.2;
+        document.getElementById("navbar").className = "navbar active";
         document.getElementById("link-left").style.opacity = 1;
+        document.getElementById("link-right").style.opacity = 0.2;
     }
     else if ( side==="right" ) {
+        document.getElementById("navbar").className = "navbar active";
         document.getElementById("link-left").style.opacity = 0.2;
         document.getElementById("link-right").style.opacity = 1;
     } else {
+        document.getElementById("navbar").className = "navbar";
         document.getElementById("link-left").style.opacity = 1;
         document.getElementById("link-right").style.opacity = 1;
     }
+
     document.getElementById("content-left").className = leftContentStyle;
     document.getElementById("content-right").className = rightContentStyle;
-
     document.getElementById("link-left").className = leftLinkStyle;
     document.getElementById("link-right").className = rightLinkStyle;
-
     document.getElementById("pic-left").className = leftPicStyle;
     document.getElementById("pic-right").className = rightPicStyle;
 
     currentSide = side;
 
-
-}
-
-
-// Content Pages
-
-var pages = {};
-var pageCount = 0;
-var selectedPage = 0;
-
-function displayPage(i) {
-    if ( openInNewTab ) {
-        openInNewTab = false;
-        if ( pages[i] ) {
-            window.open("/" + pages[i])
-        }
-    } else {
-        preloadContent();
-        if ( pages[i] && i!==selectedPage ) {
-            if ( pages[selectedPage] ) {
-                document.getElementById("content"+selectedPage).className = "content-frame";
-                document.getElementById("linkImage"+selectedPage).src = "images/"+pages[selectedPage]+"-out.gif";
-            }
-            document.getElementById("content"+i).className = "content-frame active";
-            document.getElementById("linkImage"+i).src = "images/"+pages[i]+"-selected.gif";
-            selectedPage = i;
-            setCookie("page",pages[selectedPage]);
-        }
-    }
-}
-
-
-function getPageNumber(name) {
-    for (var property in pages) {
-        if (pages.hasOwnProperty(property)) {
-            if ( pages[property[0]] === name ) {
-                return property[0];
-            }
-        }
-    }
-    return 0;
-}
-
-function setupPages(names) {
-    var nameArray = names.split(",");
-    for ( var i=0; i<nameArray.length; i++ ) {
-        pages[i+1] = nameArray[i];
-        pageCount++;
-    }
-}
-
-
-// Link Rollovers
-
-function navMouseover(i) {
-    if ( i != selectedPage ) {
-        document.getElementById("linkImage"+i).src = "images/" + pages[i] + "-over.gif";
-    }
-}
-
-function navMouseout(i) {
-    if ( i != selectedPage ) {
-        document.getElementById("linkImage"+i).src = "images/" + pages[i] + "-out.gif";
-    }
-}
-
-
-// CTRL+click feature
-
-var openInNewTab = false;
-
-function navMousedown(e) {
-    if ( e.ctrlKey ) {
-        openInNewTab = true;
-    }
 }
 
 
 // Preload
 
-var contentLoaded = false;
-
 function preloadImages() {
 	if (document.images) {
-	    repeatForAllPages(function(i,n) {
-		    loadImage("images/" + n + ".gif");
-		    loadImage("images/" + n + "-selected.gif");
-		    loadImage("images/" + n + "-over.gif");
-		    loadImage("images/" + n + "-out.gif");
-	    });
+
+        loadImage("images/barrimason-logo-animation.gif");
+
+        loadImage("images/musician.gif");
+        loadImage("images/musician-selected.gif");
+        loadImage("images/musician-over.gif");
+        loadImage("images/musician-out.gif");
+
+        loadImage("images/coder.gif");
+        loadImage("images/coder-selected.gif");
+        loadImage("images/coder-over.gif");
+        loadImage("images/coder-out.gif");
+
+        loadImage("images/back.jpg");
 	}
-}
-
-function preloadContent() {
-    if ( !contentLoaded ) {
-//	    repeatForAllPages(function(i,n) {
-//            document.getElementById("content"+i).src = n+".html";
-//        });
-        document.getElementById("content-left").src="musician.html";
-        document.getElementById("content-right").src="coder.html";
-
-        contentLoaded = true;
-    }
 }
 
 function loadImage(arg) {
@@ -348,8 +219,3 @@ function bindFunction(f, i) {
     }
 }
 
-function repeatForAllPages(f) {
-    for ( var i=1; i<=pageCount; i++ ) {
-        f(i, pages[i]);
-    }
-}
