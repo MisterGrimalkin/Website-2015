@@ -1,3 +1,8 @@
+var names = {
+    "left": "musician",
+    "right": "coder"
+}
+
 function onLoad() {
 
     preloadImages();
@@ -9,17 +14,6 @@ function onLoad() {
         navigateTo(page);
     }
 
-}
-
-function getName(side) {
-    var name;
-    if ( side==="left" ) {
-        name = "musician";
-    }
-    if ( side==="right" ) {
-        name = "coder";
-    }
-    return name;
 }
 
 
@@ -35,19 +29,19 @@ function cancelLogoAnimation() {
 
 function onOver(side) {
     if ( side!==currentSide ) {
-        document.getElementById("link-" + side).src = "images/" + getName(side) + "-over.gif";
+        document.getElementById("link-" + side).src = "images/" + names[side] + "-over.gif";
     }
 }
 
 function onOut(side) {
     if ( side!==currentSide ) {
-        document.getElementById("link-" + side).src = "images/" + getName(side) + "-out.gif";
+        document.getElementById("link-" + side).src = "images/" +names[side] + "-out.gif";
     }
 }
 
 function onSelect(side) {
     if ( side!==currentSide ) {
-        document.getElementById("link-" + side).src = "images/" + getName(side) + "-selected.gif";
+        document.getElementById("link-" + side).src = "images/" + names[side] + "-selected.gif";
     }
 }
 
@@ -68,7 +62,7 @@ function navigateTo(side) {
     var rightPicStyle = "sidebar right";
 
     if ( currentSide!=="" ) {
-        document.getElementById("link-" + currentSide).src = "images/" + getName(currentSide) + "-out.gif";
+        document.getElementById("link-" + currentSide).src = "images/" + names[currentSide] + "-out.gif";
     }
 
     if ( side!==currentSide ) {
@@ -209,13 +203,3 @@ function addWithSemiColon(allCookies, newPair) {
     }
     return newCookie;
 }
-
-
-// Utility
-
-function bindFunction(f, i) {
-    return function() {
-        f(i);
-    }
-}
-

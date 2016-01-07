@@ -30,7 +30,7 @@ html
 	clear: left;
 	overflow: hidden;
 	border-bottom: none;
-    -webkit-transition: border-bottom 0.5s ease ;
+    -webkit-transition: border-bottom 0.5s ease;
        -moz-transition: border-bottom 0.5s ease;
         -ms-transition: border-bottom 0.5s ease;
          -o-transition: border-bottom 0.5s ease;
@@ -39,7 +39,7 @@ html
 
 .navbar.active {
     border-bottom: 1px solid white;
-    -webkit-transition: border-bottom 0.5s ease ;
+    -webkit-transition: border-bottom 0.5s ease;
        -moz-transition: border-bottom 0.5s ease;
         -ms-transition: border-bottom 0.5s ease;
          -o-transition: border-bottom 0.5s ease;
@@ -57,7 +57,7 @@ html
 .navlink.right {
     margin-right: calc(50% - 300px);
     float: right;
-    -webkit-transition: margin-right 0.5s ease ;
+    -webkit-transition: margin-right 0.5s ease;
        -moz-transition: margin-right 0.5s ease;
         -ms-transition: margin-right 0.5s ease;
          -o-transition: margin-right 0.5s ease;
@@ -67,7 +67,7 @@ html
 .navlink.left {
     margin-left: calc(50% - 300px);
     float: left;
-    -webkit-transition: margin-left 0.5s ease ;
+    -webkit-transition: margin-left 0.5s ease;
        -moz-transition: margin-left 0.5s ease;
         -ms-transition: margin-left 0.5s ease;
          -o-transition: margin-left 0.5s ease;
@@ -86,7 +86,7 @@ html
 
 .navlink.right.active {
     margin-right: 0px;
-    -webkit-transition: margin-right 0.5s ease ;
+    -webkit-transition: margin-right 0.5s ease;
        -moz-transition: margin-right 0.5s ease;
         -ms-transition: margin-right 0.5s ease;
          -o-transition: margin-right 0.5s ease;
@@ -101,7 +101,7 @@ html
     width: 0px;
     margin: 0px;
     overflow: hidden;
-    -webkit-transition: width 0.5s ease ;
+    -webkit-transition: width 0.5s ease;
        -moz-transition: width 0.5s ease;
         -ms-transition: width 0.5s ease;
          -o-transition: width 0.5s ease;
@@ -190,7 +190,6 @@ html
     padding-top: 60px;
     color: black;
     font-weight: bold;
-	//font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 .subnav a {
@@ -221,7 +220,6 @@ html
 .video {
     position: relative;
 	float: left;
-	//clear: both;
 	margin: 0px;
 	border: 1px solid #222200;
 	display: inline-block;
@@ -239,8 +237,6 @@ html
 h1 {
     font-weight: bold;
 	font-size: x-large;
-	//border-bottom: 1px solid white;
-	//font-family: Tahoma, Geneva, sans-serif;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
     margin-left: 10px;
@@ -249,7 +245,6 @@ h1 {
 h2 {
     font-weight: bold;
 	font-size: large;
-	//font-family: Tahoma, Geneva, sans-serif;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
 	margin-bottom: -15px;
