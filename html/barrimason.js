@@ -3,46 +3,53 @@ var names = {
     "right": "coder"
 }
 
-function onLoad() {
+function buildController($scope) {
+
+    $scope.names = names;
+    $scope.navigateTo = navigateTo;
+    $scope.rollover = rollover;
+
+    // Constants for readability
+    $scope.navlink = "navlink ";
+    $scope.sidebar = "sidebar ";
+    $scope.link = "link-";
+    $scope.pic = "pic-";
+    $scope.content = "content-";
+    $scope.images = "images/";
+    $scope.gif = ".gif";
+    $scope.png = ".png";
+    $scope.html = ".html";
 
     preloadImages();
 
-    // Get side from URL
-    var page = getQueryString().page;
-    if ( page ) {
-        onSelect(page);
-        navigateTo(page);
-    }
-
+    // Process URL parameters
+    $(function() {
+        var page = getQueryString().page;
+        if ( page ) {
+            rollover(page, "over");
+            setTimeout(function() {
+                rollover(page, "selected");
+                navigateTo(page);
+            }, 500);
+        }
+    });
 }
 
 
 // Animations and Rollovers
 
+function rollover(side, state) {
+    if ( side!==currentSide ) {
+        $("#link-"+side).attr("src", "images/"+names[side]+"-"+state+".gif");
+    }
+}
+
 function triggerLogoAnimation() {
-    document.getElementById("logo").src = "images/barrimason-logo-animation.gif";
+    $("#logo").attr("src", "images/barrimason-logo-animation.gif");
 }
 
 function cancelLogoAnimation() {
-    document.getElementById("logo").src = "images/barrimason-logo.gif";
-}
-
-function onOver(side) {
-    if ( side!==currentSide ) {
-        document.getElementById("link-" + side).src = "images/" + names[side] + "-over.gif";
-    }
-}
-
-function onOut(side) {
-    if ( side!==currentSide ) {
-        document.getElementById("link-" + side).src = "images/" +names[side] + "-out.gif";
-    }
-}
-
-function onSelect(side) {
-    if ( side!==currentSide ) {
-        document.getElementById("link-" + side).src = "images/" + names[side] + "-selected.gif";
-    }
+    $("#logo").attr("src", "images/barrimason-logo.gif");
 }
 
 
@@ -62,7 +69,7 @@ function navigateTo(side) {
     var rightPicStyle = "sidebar right";
 
     if ( currentSide!=="" ) {
-        document.getElementById("link-" + currentSide).src = "images/" + names[currentSide] + "-out.gif";
+        $("#link-"+currentSide).attr("src", "images/" + names[currentSide] + "-out.gif");
     }
 
     if ( side!==currentSide ) {
@@ -81,26 +88,26 @@ function navigateTo(side) {
     }
 
     if ( side==="left" ) {
-        document.getElementById("navbar").className = "navbar active";
-        document.getElementById("link-left").style.opacity = 1;
-        document.getElementById("link-right").style.opacity = 0.2;
+        $("#navbar").attr("class", "navbar active");
+        $("#link-left").css("opacity", 1);
+        $("#link-right").css("opacity", 0.2);
     }
     else if ( side==="right" ) {
-        document.getElementById("navbar").className = "navbar active";
-        document.getElementById("link-left").style.opacity = 0.2;
-        document.getElementById("link-right").style.opacity = 1;
+        $("#navbar").attr("class", "navbar active");
+        $("#link-left").css("opacity", 0.2);
+        $("#link-right").css("opacity", 1);
     } else {
-        document.getElementById("navbar").className = "navbar";
-        document.getElementById("link-left").style.opacity = 1;
-        document.getElementById("link-right").style.opacity = 1;
+        $("#navbar").attr("class", "navbar");
+        $("#link-left").css("opacity", 1);
+        $("#link-right").css("opacity", 1);
     }
 
-    document.getElementById("content-left").className = leftContentStyle;
-    document.getElementById("content-right").className = rightContentStyle;
-    document.getElementById("link-left").className = leftLinkStyle;
-    document.getElementById("link-right").className = rightLinkStyle;
-    document.getElementById("pic-left").className = leftPicStyle;
-    document.getElementById("pic-right").className = rightPicStyle;
+    $("#content-left").attr("class", leftContentStyle);
+    $("#content-right").attr("class", rightContentStyle);
+    $("#link-left").attr("class", leftLinkStyle);
+    $("#link-right").attr("class", rightLinkStyle);
+    $("#pic-left").attr("class", leftPicStyle);
+    $("#pic-right").attr("class", rightPicStyle);
 
     currentSide = side;
 
@@ -110,22 +117,21 @@ function navigateTo(side) {
 // Preload
 
 function preloadImages() {
+
 	if (document.images) {
 
         loadImage("images/barrimason-logo-animation.gif");
 
-        loadImage("images/musician.gif");
-        loadImage("images/musician-selected.gif");
-        loadImage("images/musician-over.gif");
-        loadImage("images/musician-out.gif");
-
-        loadImage("images/coder.gif");
-        loadImage("images/coder-selected.gif");
-        loadImage("images/coder-over.gif");
-        loadImage("images/coder-out.gif");
+        for ( side in names ) {
+            loadImage("images/"+names[side]+".gif");
+            loadImage("images/"+names[side]+"-selected.gif");
+            loadImage("images/"+names[side]+"-over.gif");
+            loadImage("images/"+names[side]+"-out.gif");
+        }
 
         loadImage("images/back.jpg");
 	}
+
 }
 
 function loadImage(arg) {
@@ -157,49 +163,3 @@ function getQueryString() {
     return query_string;
 }
 
-// Cookies
-
-function getCookie(name) {
-    var all = document.cookie;
-    var pairs = all.split(";");
-    for ( var i=0; i<pairs.length; i++ ) {
-        var c = pairs[i].split("=");
-         if ( c[0]===name ) {
-            return c[1];
-         }
-    }
-    return null;
-}
-
-function setCookie(name, value) {
-    var newCookie = "";
-    var found = false;
-    var all = document.cookie;
-    var pairs = all.split(";");
-    if ( all.indexOf(name)!==-1 ) {
-        for ( var i=0; i<pairs.length; i++ ) {
-             var c = pairs[i].split("=");
-             if ( c[0]===name ) {
-                newCookie = addWithSemiColon(newCookie, c[0]+"="+value);
-                found = true;
-             } else {
-                newCookie = addWithSemiColon(newCookie, c[0]+"="+c[1]);
-             }
-        }
-    }
-    if ( !found ) {
-        newCookie = addWithSemiColon(newCookie, name+"="+value);
-    }
-
-    document.cookie = newCookie;
-}
-
-function addWithSemiColon(allCookies, newPair) {
-    var newCookie = allCookies;
-    if ( newCookie==="" ) {
-        newCookie = newPair;
-    } else {
-        newCookie = newCookie + ";" + newPair;
-    }
-    return newCookie;
-}

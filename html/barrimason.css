@@ -177,10 +177,9 @@ html
 }
 
 .subnavlink {
-	border: 1px solid white;
+	border: 1px solid rgba(255,255,255,0.6);
     width: 200px;
     height: 150px;
-    background-image: url("images/coder_projects.jpg");
     margin: 15px;
     padding: 10px;
     clear: none;
@@ -195,11 +194,17 @@ html
 .subnav a {
     opacity: 0.6;
     text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+       -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+         -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
 }
 
 .subnav a:hover {
     opacity: 1;
 }
+
 
 .content {
     position: relative;
