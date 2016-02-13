@@ -57,6 +57,9 @@ html
 .navlink.right {
     margin-right: calc(50% - 300px);
     float: right;
+}
+
+.navlink.right.animated {
     -webkit-transition: margin-right 0.5s ease;
        -moz-transition: margin-right 0.5s ease;
         -ms-transition: margin-right 0.5s ease;
@@ -67,6 +70,9 @@ html
 .navlink.left {
     margin-left: calc(50% - 300px);
     float: left;
+}
+
+.navlink.left.animated {
     -webkit-transition: margin-left 0.5s ease;
        -moz-transition: margin-left 0.5s ease;
         -ms-transition: margin-left 0.5s ease;
@@ -84,6 +90,10 @@ html
 
 }
 
+.navlink.left.instantactive {
+    margin-left: 0px;
+}
+
 .navlink.right.active {
     margin-right: 0px;
     -webkit-transition: margin-right 0.5s ease;
@@ -92,6 +102,10 @@ html
          -o-transition: margin-right 0.5s ease;
             transition: margin-right 0.5s ease;
 
+}
+
+.navlink.right.instantactive {
+    margin-right: 0px;
 }
 
 
@@ -155,7 +169,7 @@ html
 
 .content-frame.active {
     opacity: 1;
-	height: 100%;
+	height: 900px;
 	width: calc(100% - 300px);
     -webkit-transition: opacity 2s ease;
        -moz-transition: opacity 2s ease;

@@ -3,6 +3,15 @@ var names = {
     "right": "coder"
 }
 
+function getSide(name) {
+    for ( side in names ) {
+        if ( names[side]==name ) {
+            return side;
+        }
+    }
+    return null;
+}
+
 function buildController($scope) {
 
     $scope.names = names;
@@ -10,6 +19,7 @@ function buildController($scope) {
     $scope.rollover = rollover;
 
     // Constants for readability
+    $scope.contentphp = "content.php?section=";
     $scope.navlink = "navlink ";
     $scope.sidebar = "sidebar ";
     $scope.link = "link-";
@@ -24,13 +34,21 @@ function buildController($scope) {
 
     // Process URL parameters
     $(function() {
+        var section = getQueryString().section;
+        var side = getSide(section);
         var page = getQueryString().page;
-        if ( page ) {
-            rollover(page, "over");
-            setTimeout(function() {
-                rollover(page, "selected");
-                navigateTo(page);
-            }, 500);
+        if ( side ) {
+            if ( page ) {
+                rollover(side, "selected");
+                openPage(side, page);
+                navigateTo(side, true);
+            } else {
+                rollover(side, "over");
+                setTimeout(function() {
+                    rollover(side, "selected");
+                    navigateTo(side);
+                }, 500);
+            }
         }
     });
 }
@@ -57,13 +75,13 @@ function cancelLogoAnimation() {
 
 var currentSide = "";
 
-function navigateTo(side) {
+function navigateTo(side, instant) {
 
     var leftContentStyle = "content-frame inactive";
     var rightContentStyle = "content-frame inactive";
 
-    var leftLinkStyle = "navlink left";
-    var rightLinkStyle = "navlink right";
+    var leftLinkStyle = "navlink left animated";
+    var rightLinkStyle = "navlink right animated";
 
     var leftPicStyle = "sidebar left";
     var rightPicStyle = "sidebar right";
@@ -74,12 +92,12 @@ function navigateTo(side) {
 
     if ( side!==currentSide ) {
         if ( side==="left") {
-            leftLinkStyle = "navlink left active";
+            leftLinkStyle = "navlink left " + ( instant?"instant":"") + "active";
             leftPicStyle = "sidebar left active";
             leftContentStyle = "content-frame active left";
         }
         if ( side==="right" ) {
-            rightLinkStyle = "navlink right active";
+            rightLinkStyle = "navlink right " + ( instant?"instant":"") + "active";
             rightPicStyle = "sidebar right active";
             rightContentStyle = "content-frame active right";
         }
@@ -111,6 +129,12 @@ function navigateTo(side) {
 
     currentSide = side;
 
+}
+
+function openPage(side, page) {
+    if ( page!=="menu") {
+        $("#content-"+side).attr("src", "content.php?section="+names[side]+"&page="+page);
+    }
 }
 
 
