@@ -20,7 +20,7 @@ h1 {
 	font-size: x-large;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
-    margin-left: 10px;
+    margin-left: 0px;
 }
 
 h2 {
@@ -34,7 +34,7 @@ h2 {
 
 p {
     clear: left;
-    margin-left: 20px;
+    margin-left: 5px;
 }
 
 a:link {
@@ -285,7 +285,7 @@ a:active {
 .content {
     position: relative;
 	text-align: left;
-	width: calc(100% - 50px);
+	width: calc(100% - 100px);
 	height: calc(100% - 190px);
 	color: #FFFFCC;
 	background: none;
@@ -293,9 +293,11 @@ a:active {
 	margin: 0px;
 	padding: 25px;
 	padding-top: 5px;
+	padding-left: 0px;
 	font-family: Tahoma, Geneva, sans-serif;
+	margin-left: 0px;
 	float: left;
-	display: block;
+	display: inline;
 }
 
 .video {
@@ -313,5 +315,15 @@ a:active {
 	margin: 0px;
 	border: 1px solid #222200;
 	box-shadow: 2px 2px 4px black;
+}
+
+.backlink {
+    float: left;
+    clear: none;
+    width: 30px;
+    display: inline;
+    overflow: hidden;
+    padding-top: 10px;
+    margin: 10px;
 }
 

@@ -48,16 +48,21 @@
             $href .= "?section=$section&page=menu";
         }
         return "
-            <h2>
+            <nav class='backlink'>
                 <a href='$href' target='_parent'>
                     <img src='images/back.jpg'/>
                 </a>
-            </h2>
+            </nav>
         ";
     }
 
-    function content($content) {
-        return "<div class='content'>$content</div>";
+    function content($content, $extramargin = false) {
+        $result = "<div class='content'";
+        if ( $extramargin ) {
+            $result .= " style='margin-left: 20px;'";
+        }
+        $result .=">$content</div>";
+        return $result;
     }
 
     function sectionIndex($section) {
@@ -102,13 +107,12 @@
                 file_get_contents("content/$section.html")
                 .
                 sectionIndex($section)
-            );
+            , true);
         } else {
-            echo content(
+            echo
                 backLink($section)
                 .
-                file_get_contents("content/$section"."_$page.html")
-            );
+                content(file_get_contents("content/$section"."_$page.html"));
         }
     }
 ?>
