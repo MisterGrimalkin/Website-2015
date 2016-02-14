@@ -32,9 +32,10 @@
     }
 
     function pageLink($section, $page) {
+        $href = "index.php?section=$section&page=$page";
         $image_src = "../images/$section"."_$page.jpg";
         return "
-        <a href='index.php?section=$section&page=$page' target='_parent'>
+        <a href='$href' target='_parent'>
             <div class='subnavlink' style='background-image: url(\"$image_src\");'>
             </div>
         </a>
@@ -61,21 +62,32 @@
 
     function sectionIndex($section) {
         $result = "<nav class='subnav'>";
-        $dir = new DirectoryIterator("content");
-        foreach ($dir as $file) {
-            if (!$file->isDot()) {
-                $name = explode(".", $file)[0];
-                $bits = explode("_", $name);
-                if ( count($bits)>1 ) {
-                    $file_section = $bits[0];
-                    if ( $file_section==$section ) {
-                        $file_page = $bits[1];
-                        $result .= pageLink($file_section, $file_page);
-                    }
+        $files = getFilenames("content");
+        foreach ($files as $file) {
+            $name = explode(".", $file)[0];
+            $bits = explode("_", $name);
+            if ( count($bits)>1 ) {
+                $file_section = $bits[0];
+                if ( $file_section==$section ) {
+                    $file_page = $bits[1];
+                    $result .= pageLink($file_section, $file_page);
                 }
             }
         }
         return $result."</nav>";
+    }
+
+    function getFilenames($dir) {
+        $result = array();
+        $iter = new DirectoryIterator($dir);
+        foreach ($iter as $file) {
+            if (!$file->isDot()) {
+                $name = explode(".", $file)[0];
+                $result[] = $name;
+            }
+        }
+        asort($result);
+        return $result;
     }
 
 

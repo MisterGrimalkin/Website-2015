@@ -1,7 +1,56 @@
-html
-{
+html {
     height: 100%;
     overflow: hidden;
+}
+
+body {
+    position: relative;
+	background-position: center top;
+	background-repeat: repeat-x;
+	font-size: medium;
+	line-height: 190%;
+	background-color: black;
+	margin: 0px;
+	height: 100%;
+	color: white;
+}
+
+h1 {
+    font-weight: bold;
+	font-size: x-large;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: italic;
+    margin-left: 10px;
+}
+
+h2 {
+    font-weight: bold;
+	font-size: large;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: italic;
+	margin-bottom: -15px;
+    margin-left: 0px;
+}
+
+p {
+    clear: left;
+    margin-left: 20px;
+}
+
+a:link {
+    color: #cccc33;
+}
+
+a:visited {
+    color: #999933;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:active {
+    color: red;
 }
 
 
@@ -115,11 +164,6 @@ html
     width: 0px;
     margin: 0px;
     overflow: hidden;
-    -webkit-transition: width 0.5s ease;
-       -moz-transition: width 0.5s ease;
-        -ms-transition: width 0.5s ease;
-         -o-transition: width 0.5s ease;
-            transition: width 0.5s ease;
 }
 
 .sidebar.left {
@@ -130,8 +174,17 @@ html
     float: right;
 }
 
+.sidebar.left.instantactive {
+    width: 300px;
+}
+
 .sidebar.left.active {
     width: 300px;
+    -webkit-transition: width 0.5s ease;
+       -moz-transition: width 0.5s ease;
+        -ms-transition: width 0.5s ease;
+         -o-transition: width 0.5s ease;
+            transition: width 0.5s ease;
 }
 
 .sidebar.right {
@@ -139,8 +192,17 @@ html
     float: right;
 }
 
+.sidebar.right.instantactive {
+    width: 300px;
+}
+
 .sidebar.right.active {
     width: 300px;
+    -webkit-transition: width 0.5s ease;
+       -moz-transition: width 0.5s ease;
+        -ms-transition: width 0.5s ease;
+         -o-transition: width 0.5s ease;
+            transition: width 0.5s ease;
 }
 
 
@@ -253,52 +315,3 @@ html
 	box-shadow: 2px 2px 4px black;
 }
 
-h1 {
-    font-weight: bold;
-	font-size: x-large;
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	font-style: italic;
-    margin-left: 10px;
-}
-
-h2 {
-    font-weight: bold;
-	font-size: large;
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	font-style: italic;
-	margin-bottom: -15px;
-    margin-left: 0px;
-}
-
-body {
-    position: relative;
-	background-position: center top;
-	background-repeat: repeat-x;
-	font-size: medium;
-	line-height: 190%;
-	background-color: black;
-	margin: 0px;
-	height: 100%;
-	color: white;
-}
-
-p {
-    clear: left;
-    margin-left: 20px;
-}
-
-a:link {
-    color: #cccc33;
-}
-
-a:visited {
-    color: #999933;
-}
-
-a:hover {
-    color: yellow;
-}
-
-a:active {
-    color: red;
-}

@@ -93,12 +93,12 @@ function navigateTo(side, instant) {
     if ( side!==currentSide ) {
         if ( side==="left") {
             leftLinkStyle = "navlink left " + ( instant?"instant":"") + "active";
-            leftPicStyle = "sidebar left active";
+            leftPicStyle = "sidebar left " + ( instant?"instant":"") + "active";
             leftContentStyle = "content-frame active left";
         }
         if ( side==="right" ) {
             rightLinkStyle = "navlink right " + ( instant?"instant":"") + "active";
-            rightPicStyle = "sidebar right active";
+            rightPicStyle = "sidebar right " + ( instant?"instant":"") + "active";
             rightContentStyle = "content-frame active right";
         }
     } else {
