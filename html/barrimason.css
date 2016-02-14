@@ -95,6 +95,10 @@ a:active {
             transition: border-bottom 0.5s ease;
 }
 
+.navbar.instantactive {
+    border-bottom: 1px solid white;
+}
+
 
 /* Navigation Links */
 
@@ -164,6 +168,11 @@ a:active {
     width: 0px;
     margin: 0px;
     overflow: hidden;
+    -webkit-transition: width 0.5s ease;
+       -moz-transition: width 0.5s ease;
+        -ms-transition: width 0.5s ease;
+         -o-transition: width 0.5s ease;
+            transition: width 0.5s ease;
 }
 
 .sidebar.left {
@@ -176,6 +185,11 @@ a:active {
 
 .sidebar.left.instantactive {
     width: 300px;
+    -webkit-transition: width 0s;
+       -moz-transition: width 0s;
+        -ms-transition: width 0s;
+         -o-transition: width 0s;
+            transition: width 0s;
 }
 
 .sidebar.left.active {
@@ -194,6 +208,11 @@ a:active {
 
 .sidebar.right.instantactive {
     width: 300px;
+    -webkit-transition: width 0s;
+       -moz-transition: width 0s;
+        -ms-transition: width 0s;
+         -o-transition: width 0s;
+            transition: width 0s;
 }
 
 .sidebar.right.active {
@@ -222,6 +241,7 @@ a:active {
 
 .content-frame.inactive {
     opacity: 0;
+	height: 900px;
     -webkit-transition: opacity 1s ease;
        -moz-transition: opacity 1s ease;
         -ms-transition: opacity 1s ease;

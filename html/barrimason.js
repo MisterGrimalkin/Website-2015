@@ -90,6 +90,10 @@ function navigateTo(side, instant) {
         $("#link-"+currentSide).attr("src", "images/" + names[currentSide] + "-out.gif");
     }
 
+    if ( instant ) {
+        $("#link-"+side).attr("src", "images/" + names[side] + "-active.gif");
+    }
+
     if ( side!==currentSide ) {
         if ( side==="left") {
             leftLinkStyle = "navlink left " + ( instant?"instant":"") + "active";
@@ -106,12 +110,12 @@ function navigateTo(side, instant) {
     }
 
     if ( side==="left" ) {
-        $("#navbar").attr("class", "navbar active");
+        $("#navbar").attr("class", "navbar " + ( instant?"instant":"") + "active");
         $("#link-left").css("opacity", 1);
         $("#link-right").css("opacity", 0.2);
     }
     else if ( side==="right" ) {
-        $("#navbar").attr("class", "navbar active");
+        $("#navbar").attr("class", "navbar " + ( instant?"instant":"") + "active");
         $("#link-left").css("opacity", 0.2);
         $("#link-right").css("opacity", 1);
     } else {
@@ -148,6 +152,7 @@ function preloadImages() {
 
         for ( side in names ) {
             loadImage("images/"+names[side]+".gif");
+            loadImage("images/"+names[side]+"-active.gif");
             loadImage("images/"+names[side]+"-selected.gif");
             loadImage("images/"+names[side]+"-over.gif");
             loadImage("images/"+names[side]+"-out.gif");
