@@ -20,6 +20,20 @@
 
 <?php
 
+    function open_connection() {
+        $host = "barrimason.com";
+        $database = "MAS003_A";
+        $username = "barrimason";
+        $password = "#X5mdp13";
+
+        $conn = new mysqli($host, $username, $password, $database);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        return $conn;
+    }
+
     function mainIndex() {
         return "
         <a href='content.php?section=musician' target='_self'>Musician</a>
@@ -31,11 +45,24 @@
         return "<nav class='subnav'>$content</nav>";
     }
 
-    function pageLink($section, $page) {
+    function pageLink($story) {
+        $section = strtolower($story["section"]);
+        $id = $story["story_id"];
+        $href = "index.php?section=$section&storyid=$id";
+        $image_src = $story["image"];
+        return "
+        <a href='$href' target='_parent' accesskey='$accesskey'>
+            <div class='subnavlink' style='background-image: url(\"$image_src\");'>
+            </div>
+        </a>
+        ";
+    }
+
+    function pageLink_old($section, $page, $accesskey) {
         $href = "index.php?section=$section&page=$page";
         $image_src = "../images/$section"."_$page.jpg";
         return "
-        <a href='$href' target='_parent'>
+        <a href='$href' target='_parent' accesskey='$accesskey'>
             <div class='subnavlink' style='background-image: url(\"$image_src\");'>
             </div>
         </a>
@@ -45,7 +72,7 @@
     function backLink($section = "") {
         $href = "index.php";
         if ( $section != "" ) {
-            $href .= "?section=$section&page=menu";
+            $href .= "?section=$section&storyid=menu";
         }
         return "
             <nav class='backlink'>
@@ -67,7 +94,27 @@
 
     function sectionIndex($section) {
         $result = "<nav class='subnav'>";
+
+        $conn = open_connection();
+
+        $sql = "SELECT * FROM Story WHERE UPPER(section) = '" . strtoupper($section) . "' ORDER BY rank";
+        $query_result = $conn->query($sql);
+        if ($query_result->num_rows > 0) {
+            while($row = $query_result->fetch_assoc()) {
+                $result .= pageLink($row);
+            }
+        } else {
+            $result .= "No Stories Found<br>";
+        }
+
+        $conn->close();
+        return $result."</nav>";
+    }
+
+    function sectionIndex_old($section) {
+        $result = "<nav class='subnav'>";
         $files = getFilenames("content");
+        $ak = 1;
         foreach ($files as $file) {
             $name = explode(".", $file)[0];
             $bits = explode("_", $name);
@@ -75,7 +122,7 @@
                 $file_section = $bits[0];
                 if ( $file_section==$section ) {
                     $file_page = $bits[1];
-                    $result .= pageLink($file_section, $file_page);
+                    $result .= pageLink($file_section, $file_page, substr($file_page, 0, 1));
                 }
             }
         }
@@ -95,26 +142,48 @@
         return $result;
     }
 
+    function build() {
+        $section = $_GET["section"];
+        $storyid = $_GET["storyid"];
 
-    $section = $_GET["section"];
-    $page = $_GET["page"];
-
-    if ( $section=="" ) {
-        echo mainIndex();
-    } else {
-        if ( $page=="" ) {
-            echo content(
-                file_get_contents("content/$section.html")
-                .
-                sectionIndex($section)
-            , true);
+        if ( $section=="" ) {
+            echo mainIndex();
         } else {
-            echo
-                backLink($section)
-                .
-                content(file_get_contents("content/$section"."_$page.html"));
+            if ( !$storyid ) {
+                echo content(
+                    file_get_contents("content/$section.html")
+                    .
+                    sectionIndex($section)
+                , true);
+            } else {
+                $conn = open_connection();
+
+                $sql = "SELECT * FROM Story WHERE story_id=" . $storyid;
+
+                $result = $conn->query($sql);
+
+                $story = $result->fetch_assoc();
+                $content = $story["content"];
+                if ( strtoupper($section) == strtoupper($story["section"]) ) {
+                    echo
+                        backLink($section)
+                        .
+                        content($content);
+                } else {
+                    echo content(
+                    file_get_contents("content/$section.html")
+                    .
+                    sectionIndex($section)
+                    , true);
+                }
+
+                $conn->close();
+            }
         }
     }
+
+    build();
+
 ?>
 
 

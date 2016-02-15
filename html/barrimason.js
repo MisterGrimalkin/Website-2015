@@ -36,7 +36,7 @@ function buildController($scope) {
     $(function() {
         var section = getQueryString().section;
         var side = getSide(section);
-        var page = getQueryString().page;
+        var page = getQueryString().storyid;
         if ( side ) {
             if ( page ) {
                 rollover(side, "selected");
@@ -137,7 +137,7 @@ function navigateTo(side, instant) {
 
 function openPage(side, page) {
     if ( page!=="menu") {
-        $("#content-"+side).attr("src", "content.php?section="+names[side]+"&page="+page);
+        $("#content-"+side).attr("src", "content.php?section="+names[side]+"&storyid="+page);
     }
 }
 
