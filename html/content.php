@@ -20,53 +20,10 @@
 
 <?php
 
-    function open_connection() {
-        $host = "barrimason.com";
-        $database = "MAS003_A";
-        $username = "barrimason";
-        $password = "#X5mdp13";
-
-        $conn = new mysqli($host, $username, $password, $database);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        return $conn;
-    }
-
-    function mainIndex() {
-        return "
-        <a href='content.php?section=musician' target='_self'>Musician</a>
-        <a href='content.php?section=coder' target='_self'>Coder</a>
-        ";
-    }
+    include("common.php");
 
     function subNav($content) {
-        return "<nav class='subnav'>$content</nav>";
-    }
-
-    function pageLink($story) {
-        $section = strtolower($story["section"]);
-        $id = $story["story_id"];
-        $href = "index.php?section=$section&storyid=$id";
-        $image_src = $story["image"];
-        return "
-        <a href='$href' target='_parent' accesskey='$accesskey'>
-            <div class='subnavlink' style='background-image: url(\"$image_src\");'>
-            </div>
-        </a>
-        ";
-    }
-
-    function pageLink_old($section, $page, $accesskey) {
-        $href = "index.php?section=$section&page=$page";
-        $image_src = "../images/$section"."_$page.jpg";
-        return "
-        <a href='$href' target='_parent' accesskey='$accesskey'>
-            <div class='subnavlink' style='background-image: url(\"$image_src\");'>
-            </div>
-        </a>
-        ";
+        return "<nav id='section' class='subnav'>$content</nav>";
     }
 
     function backLink($section = "") {
@@ -76,8 +33,8 @@
         }
         return "
             <nav class='backlink'>
-                <a href='$href' target='_parent'>
-                    <img src='images/back.jpg'/>
+                <a id='back-$section' href='$href' target='_parent' title='Return to Menu (Shortcut: 0)'>
+                    <img src='images/back-small.jpg' />
                 </a>
             </nav>
         ";
@@ -93,53 +50,48 @@
     }
 
     function sectionIndex($section) {
-        $result = "<nav class='subnav'>";
+        $result = "
+            <nav id='nav-$section' class='subnav'>
+        ";
+
+
+        $shortcuts = array();
 
         $conn = open_connection();
 
         $sql = "SELECT * FROM Story WHERE UPPER(section) = '" . strtoupper($section) . "' ORDER BY rank";
         $query_result = $conn->query($sql);
         if ($query_result->num_rows > 0) {
-            while($row = $query_result->fetch_assoc()) {
-                $result .= pageLink($row);
+            while($story = $query_result->fetch_assoc()) {
+                $result .= pageLink($story);
             }
         } else {
             $result .= "No Stories Found<br>";
         }
 
         $conn->close();
-        return $result."</nav>";
-    }
+        $result .= "</nav>";
 
-    function sectionIndex_old($section) {
-        $result = "<nav class='subnav'>";
-        $files = getFilenames("content");
-        $ak = 1;
-        foreach ($files as $file) {
-            $name = explode(".", $file)[0];
-            $bits = explode("_", $name);
-            if ( count($bits)>1 ) {
-                $file_section = $bits[0];
-                if ( $file_section==$section ) {
-                    $file_page = $bits[1];
-                    $result .= pageLink($file_section, $file_page, substr($file_page, 0, 1));
-                }
-            }
-        }
-        return $result."</nav>";
-    }
-
-    function getFilenames($dir) {
-        $result = array();
-        $iter = new DirectoryIterator($dir);
-        foreach ($iter as $file) {
-            if (!$file->isDot()) {
-                $name = explode(".", $file)[0];
-                $result[] = $name;
-            }
-        }
-        asort($result);
         return $result;
+    }
+
+    function pageLink($story) {
+
+        $storyid = $story["story_id"];
+        $section = strtolower($story["section"]);
+        $title = $story["title"];
+        $image_src = $story["image"];
+        $rank = $story["rank"];
+
+        $href = "index.php?section=$section&storyid=$storyid";
+
+        $elem_id = "pagelink-$section-$rank";
+
+        return "
+            <a id='$elem_id' href='$href' target='_parent' title='$title (Shortcut: $rank)'>
+                <div class='subnavlink' style='background-image: url(\"$image_src\");'></div>
+            </a>
+        ";
     }
 
     function build() {
@@ -147,7 +99,7 @@
         $storyid = $_GET["storyid"];
 
         if ( $section=="" ) {
-            echo mainIndex();
+            redirect("index.php");
         } else {
             if ( !$storyid ) {
                 echo content(

@@ -227,21 +227,25 @@ a:active {
 
 /* Content Frame */
 
+#container {
+    height: 100%;
+}
+
 .content-frame {
     position: relative;
     opacity: 0;
 	width: 0px;
 	height: 0px;
 	margin: 0px;
+    padding: 0px;
 	overflow: auto;
-
 	background-color: black;
 	color: white;
 }
 
 .content-frame.inactive {
     opacity: 0;
-	height: 900px;
+	height: 100%;
     -webkit-transition: opacity 1s ease;
        -moz-transition: opacity 1s ease;
         -ms-transition: opacity 1s ease;
@@ -251,7 +255,7 @@ a:active {
 
 .content-frame.active {
     opacity: 1;
-	height: 900px;
+	height: 100%;
 	width: calc(100% - 300px);
     -webkit-transition: opacity 2s ease;
        -moz-transition: opacity 2s ease;
@@ -343,7 +347,25 @@ a:active {
     width: 30px;
     display: inline;
     overflow: hidden;
-    padding-top: 10px;
+    padding-top: 11px;
     margin: 10px;
+}
+
+.backlink a {
+    opacity: 0.4;
+    -webkit-transition: opacity 0.4s ease;
+       -moz-transition: opacity 0.4s ease;
+        -ms-transition: opacity 0.4s ease;
+         -o-transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease;
+}
+
+.backlink a:hover {
+    opacity: 1;
+    -webkit-transition: opacity 0.4s ease;
+       -moz-transition: opacity 0.4s ease;
+        -ms-transition: opacity 0.4s ease;
+         -o-transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease;
 }
 

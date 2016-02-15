@@ -1,16 +1,8 @@
-var names = {
-    "left": "musician",
-    "right": "coder"
-}
 
-function getSide(name) {
-    for ( side in names ) {
-        if ( names[side]==name ) {
-            return side;
-        }
-    }
-    return null;
-}
+////////////////////////
+// Angular Controller //
+//  & Initialisation  //
+////////////////////////
 
 function buildController($scope) {
 
@@ -34,9 +26,17 @@ function buildController($scope) {
 
     // Process URL parameters
     $(function() {
+
+        initShortcuts();
+
+        $(window).keydown(processShortcut);
+
+//        $(document.getElementById('content-left').contentWindow.document).keydown(function(){ window.alert('Key down!'); });
+
         var section = getQueryString().section;
         var side = getSide(section);
         var page = getQueryString().storyid;
+
         if ( side ) {
             if ( page ) {
                 rollover(side, "selected");
@@ -54,7 +54,52 @@ function buildController($scope) {
 }
 
 
-// Animations and Rollovers
+////////////////////////
+// Keyboard Shortcuts //
+////////////////////////
+
+var shortcuts = {};
+
+function initShortcuts() {
+    registerShortcut(37, function(){navigateTo("left");});
+    registerShortcut(39, function(){navigateTo("right");});
+//    registerShortcut(38, function(){navigateTo("");triggerLogoAnimation()});
+//    registerShortcut(40, function(){navigateTo("");cancelLogoAnimation()});
+    for ( var i=0; i<10; i++ ) {
+        registerShortcut(48+i, followShortcut(i));
+        registerShortcut(96+i, followShortcut(i));
+    }
+}
+
+function registerShortcut(key, func) {
+    shortcuts[key] = func;
+}
+
+function processShortcut(e) {
+    func = shortcuts[e.which];
+    //console.log(e.which);
+    if ( func ) {
+        func();
+    }
+}
+
+function followShortcut(n) {
+    return function() {
+        var frame = $("#content-"+currentSide);
+        if ( frame ) {
+            var target = (n==0? "back-"+names[currentSide] : "pagelink-"+names[currentSide]+"-"+n);
+            var link = frame.contents().find("body #"+target).get();
+            if ( link[0] ) {
+                window.location.assign(link[0].href);
+            }
+        }
+    }
+}
+
+
+//////////////////////////////
+// Animations and Rollovers //
+//////////////////////////////
 
 function rollover(side, state) {
     if ( side!==currentSide ) {
@@ -71,9 +116,17 @@ function cancelLogoAnimation() {
 }
 
 
-// Navigation
+////////////////
+// Navigation //
+////////////////
 
 var currentSide = "";
+
+function openPage(side, storyid) {
+    if ( storyid!=="menu") {
+        $("#content-"+side).attr("src", "content.php?section="+names[side]+"&storyid="+storyid);
+    }
+}
 
 function navigateTo(side, instant) {
 
@@ -92,6 +145,8 @@ function navigateTo(side, instant) {
 
     if ( instant ) {
         $("#link-"+side).attr("src", "images/" + names[side] + "-active.gif");
+    } else {
+        $("#link-"+side).attr("src", "images/" + names[side] + "-selected.gif");
     }
 
     if ( side!==currentSide ) {
@@ -99,13 +154,13 @@ function navigateTo(side, instant) {
             leftLinkStyle = "navlink left " + ( instant?"instant":"") + "active";
             leftPicStyle = "sidebar left " + ( instant?"instant":"") + "active";
             leftContentStyle = "content-frame active left";
-        }
-        if ( side==="right" ) {
+        } else if ( side==="right" ) {
             rightLinkStyle = "navlink right " + ( instant?"instant":"") + "active";
             rightPicStyle = "sidebar right " + ( instant?"instant":"") + "active";
             rightContentStyle = "content-frame active right";
         }
     } else {
+        $("#link-"+side).attr("src", "images/" + names[side] + "-out.gif");
         side = "";
     }
 
@@ -135,14 +190,24 @@ function navigateTo(side, instant) {
 
 }
 
-function openPage(side, page) {
-    if ( page!=="menu") {
-        $("#content-"+side).attr("src", "content.php?section="+names[side]+"&storyid="+page);
+var names = {
+    "left": "musician",
+    "right": "coder"
+}
+
+function getSide(name) {
+    for ( side in names ) {
+        if ( names[side]==name ) {
+            return side;
+        }
     }
+    return null;
 }
 
 
-// Preload
+/////////////
+// Preload //
+/////////////
 
 function preloadImages() {
 
@@ -172,7 +237,9 @@ function loadImage(arg) {
 }
 
 
-// Process URL Parameters
+////////////////////
+// URL Parameters //
+////////////////////
 
 function getQueryString() {
     var query_string = {};
@@ -191,4 +258,3 @@ function getQueryString() {
     }
     return query_string;
 }
-

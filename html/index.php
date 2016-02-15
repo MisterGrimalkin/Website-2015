@@ -11,7 +11,7 @@
     <title>Barri Mason</title>
 
     <link rel="stylesheet" type="text/css" href="barrimason.css">
-    <link rel="shortcut icon" href="bm.ico">
+    <link rel="shortcut icon" href="images/bm.ico">
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -21,7 +21,7 @@
 
 <body>
 
-<div data-ng-controller="bmcontroller" >
+<div id="container" data-ng-controller="bmcontroller" >
 
     <script>
         angular.module("bmapp", []).controller("bmcontroller", buildController);
@@ -46,13 +46,14 @@
              data-ng-mouseleave="rollover(side, 'out');"
              data-ng-mousedown="rollover(side, 'selected');"
              data-ng-click="navigateTo(side);"
+             title="Shortcut: {{side}} cursor"
              border="0" alt="">
     </nav>
 
     <div data-ng-repeat="(side, name) in names"
          id={{pic+side}}
          class={{sidebar+side}}>
-        <img src="" data-ng-src={{images+pic+side+png}}>
+        <img src="" data-ng-src={{images+pic+side+png}} width="300" height="400">
     </div>
 
     <iframe data-ng-repeat="(side, name) in names"
