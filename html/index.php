@@ -27,7 +27,7 @@
         angular.module("bmapp", []).controller("bmcontroller", buildController);
     </script>
 
-    <header class="logo">
+    <header id="logobar" class="logo">
         <img
                 id="logo" src="images/barrimason-logo.gif"
                 onclick="navigateTo('');"

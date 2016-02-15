@@ -63,6 +63,30 @@ a:active {
     margin: 0px;
     padding: 0px;
     cursor: pointer;
+    overflow: hidden;
+    -webkit-transition: height 1s ease;
+       -moz-transition: height 1s ease;
+        -ms-transition: height 1s ease;
+         -o-transition: height 1s ease;
+            transition: height 1s ease;
+}
+
+.logo.hidden {
+    height: 0px;
+    -webkit-transition: height 1s ease;
+       -moz-transition: height 1s ease;
+        -ms-transition: height 1s ease;
+         -o-transition: height 1s ease;
+            transition: height 1s ease;
+}
+
+.logo.instanthidden {
+    height: 0px;
+    -webkit-transition: height 0s;
+       -moz-transition: height 0s;
+        -ms-transition: height 0s;
+         -o-transition: height 0s;
+            transition: height 0s;
 }
 
 
@@ -322,6 +346,10 @@ a:active {
 	margin-left: 0px;
 	float: left;
 	display: inline;
+}
+
+.content .landscape {
+    height: 50px;
 }
 
 .video {

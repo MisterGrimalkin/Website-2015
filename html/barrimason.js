@@ -24,8 +24,12 @@ function buildController($scope) {
 
     preloadImages();
 
-    // Process URL parameters
     $(function() {
+
+        adjustForOrientation(true);
+        $(window).bind("orientationchange", function(e){
+            adjustForOrientation(false);
+        });
 
         initShortcuts();
 
@@ -51,6 +55,18 @@ function buildController($scope) {
             }
         }
     });
+}
+
+function adjustForOrientation(instant) {
+    if ( Math.abs(window.orientation)==90 ) {
+        $("#logobar").attr("class", "logo "+(instant?"instant":"")+"hidden")
+        $("#content-left").css("height", "115%"); //hacky!
+        $("#content-right").css("height", "115%"); //hacky!
+    } else {
+        $("#logobar").attr("class", "logo");
+        $("#content-left").css("height", "100%");
+        $("#content-right").css("height", "100%");
+    }
 }
 
 
