@@ -56,10 +56,10 @@
 
     <nav class="navbar" id="navbar" >
         <img data-ng-repeat="(side, name) in names"
-             id={{link+side}}
-             class={{navlink+side}}
+             id="link-{{side}}"
+             class="navlink {{side}}"
              src=""
-             data-ng-src={{images+name+gif}}
+             data-ng-src="images/{{name}}.gif"
              data-ng-mouseenter="rollover(side, 'over');"
              data-ng-mouseleave="rollover(side, 'out');"
              data-ng-mousedown="rollover(side, 'selected');"
@@ -69,16 +69,16 @@
     </nav>
 
     <aside data-ng-repeat="(side, name) in names"
-         id={{pic+side}}
-         class={{sidebar+side}}>
-        <img src="" data-ng-src={{images+pic+side+png}} width="300" height="400">
+         id="pic-{{side}}"
+         class="sidebar {{side}}">
+        <img src="" data-ng-src="images/pic-{{side}}.png" width="300" height="400">
     </aside>
 
     <iframe data-ng-repeat="(side, name) in names"
-            id={{content+side}}
-            name={{content+side}}
+            id="content-{{side}}"
+            name="content-{{side}}"
             class="content-frame"
-            data-ng-src={{contentphp+names[side]}}
+            data-ng-src={{"content.php?section="+names[side]}}
             frameborder="0">
     </iframe>
 

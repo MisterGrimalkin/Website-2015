@@ -10,18 +10,6 @@ function buildController($scope) {
     $scope.navigateTo = navigateTo;
     $scope.rollover = rollover;
 
-    // Constants for readability
-    $scope.contentphp = "content.php?section=";
-    $scope.navlink = "navlink ";
-    $scope.sidebar = "sidebar ";
-    $scope.link = "link-";
-    $scope.pic = "pic-";
-    $scope.content = "content-";
-    $scope.images = "images/";
-    $scope.gif = ".gif";
-    $scope.png = ".png";
-    $scope.html = ".html";
-
     preloadImages();
 
     $(function() {
@@ -33,7 +21,6 @@ function buildController($scope) {
 
         initShortcuts();
         $(window).keydown(processShortcut);
-//        $(document.getElementById('content-left').contentWindow.document).keydown(function(){ window.alert('Key down!'); });
 
         var section = getQueryString().section;
         var side = getSide(section);
@@ -55,6 +42,10 @@ function buildController($scope) {
     });
 }
 
+/////////////////
+// Orientation //
+/////////////////
+
 function adjustForOrientation(instant) {
     if ( Math.abs(window.orientation)==90 ) {
         $("#logobar").attr("class", "logo "+(instant?"instant":"")+"hidden")
@@ -67,7 +58,6 @@ function adjustForOrientation(instant) {
     }
 }
 
-
 ////////////////////////
 // Keyboard Shortcuts //
 ////////////////////////
@@ -75,13 +65,20 @@ function adjustForOrientation(instant) {
 var shortcuts = {};
 
 function initShortcuts() {
-    registerShortcut(37, function(){navigateTo("left");});
-    registerShortcut(39, function(){navigateTo("right");});
-//    registerShortcut(38, function(){navigateTo("");triggerLogoAnimation()});
-//    registerShortcut(40, function(){navigateTo("");cancelLogoAnimation()});
+    registerShortcut(37, function(){ navigateTo("left"); });        // CURSOR LEFT
+    registerShortcut(39, function(){ navigateTo("right"); });       // CURSOR RIGHT
+
+    registerShortcut(33, function(){ scrollContentBy(-300); });     // PAGE UP
+    registerShortcut(38, function(){ scrollContentBy( -40); });     // CURSOR UP
+    registerShortcut(40, function(){ scrollContentBy(  40); });     // CURSOR DOWN
+    registerShortcut(34, function(){ scrollContentBy( 300); });     // PAGE DOWN
+
+    registerShortcut(36, function(){ scrollContentTop(); });        // HOME
+    registerShortcut(35, function(){ scrollContentBottom(); });     // END
+
     for ( var i=0; i<10; i++ ) {
-        registerShortcut(48+i, followShortcut(i));
-        registerShortcut(96+i, followShortcut(i));
+        registerShortcut(48+i, followPageLink(i));                  // TOP NUMBER KEYS
+        registerShortcut(96+i, followPageLink(i));                  // NUMERICAL PAD KEYS
     }
 }
 
@@ -91,13 +88,13 @@ function registerShortcut(key, func) {
 
 function processShortcut(e) {
     func = shortcuts[e.which];
-    //console.log(e.which);
+//    console.log(e.which);
     if ( func ) {
         func();
     }
 }
 
-function followShortcut(n) {
+function followPageLink(n) {
     return function() {
         var frame = $("#content-"+currentSide);
         if ( frame ) {
@@ -110,6 +107,23 @@ function followShortcut(n) {
     }
 }
 
+///////////////
+// Scrolling //
+///////////////
+
+function scrollContentTop() {
+    $("#content-"+currentSide).contents().find(".content").scrollTop(0);
+}
+
+function scrollContentBy(n) {
+    $("#content-"+currentSide).contents().find(".content").scrollTop(
+        $("#content-"+currentSide).contents().find(".content").get(0).scrollTop + n
+    );
+}
+
+function scrollContentBottom() {
+    $("#content-"+currentSide).contents().find(".content").scrollTop(10000);  // bit hacky
+}
 
 //////////////////////////////
 // Animations and Rollovers //
@@ -129,7 +143,6 @@ function cancelLogoAnimation() {
     $("#logo").attr("src", "images/barrimason-logo.gif");
 }
 
-
 ////////////////
 // Navigation //
 ////////////////
@@ -137,7 +150,7 @@ function cancelLogoAnimation() {
 var currentSide = "";
 
 function openPage(side, storyid) {
-    if ( storyid!=="menu") {
+    if ( storyid!=="menu" ) {
         $("#content-"+side).attr("src", "content.php?section="+names[side]+"&storyid="+storyid);
     }
 }
@@ -163,14 +176,16 @@ function navigateTo(side, instant) {
         $("#link-"+side).attr("src", "images/" + names[side] + "-selected.gif");
     }
 
+    var active = ( instant ? "instant" : "" ) + "active";
+
     if ( side!==currentSide ) {
         if ( side==="left") {
-            leftLinkStyle = "navlink left " + ( instant?"instant":"") + "active";
-            leftPicStyle = "sidebar left " + ( instant?"instant":"") + "active";
+            leftLinkStyle = "navlink left " + active;
+            leftPicStyle = "sidebar left " + active;
             leftContentStyle = "content-frame active left";
         } else if ( side==="right" ) {
-            rightLinkStyle = "navlink right " + ( instant?"instant":"") + "active";
-            rightPicStyle = "sidebar right " + ( instant?"instant":"") + "active";
+            rightLinkStyle = "navlink right " + active;
+            rightPicStyle = "sidebar right " + active;
             rightContentStyle = "content-frame active right";
         }
     } else {
@@ -179,12 +194,12 @@ function navigateTo(side, instant) {
     }
 
     if ( side==="left" ) {
-        $("#navbar").attr("class", "navbar " + ( instant?"instant":"") + "active");
+        $("#navbar").attr("class", "navbar " + active);
         $("#link-left").css("opacity", 1);
         $("#link-right").css("opacity", 0.2);
     }
     else if ( side==="right" ) {
-        $("#navbar").attr("class", "navbar " + ( instant?"instant":"") + "active");
+        $("#navbar").attr("class", "navbar " + active);
         $("#link-left").css("opacity", 0.2);
         $("#link-right").css("opacity", 1);
     } else {
@@ -204,6 +219,10 @@ function navigateTo(side, instant) {
 
 }
 
+////////////////
+// Side Names //
+////////////////
+
 var names = {
     "left": "musician",
     "right": "coder"
@@ -217,7 +236,6 @@ function getSide(name) {
     }
     return null;
 }
-
 
 /////////////
 // Preload //
@@ -238,18 +256,16 @@ function preloadImages() {
         }
 
         loadImage("images/back-small.jpg");
+
 	}
 
 }
 
-function loadImage(arg) {
-	if (document.images) {
-		rslt = new Image();
-		rslt.src = arg;
-		return rslt;
-	}
+function loadImage(url) {
+    img = new Image();
+    img.src = url;
+    return img;
 }
-
 
 ////////////////////
 // URL Parameters //
