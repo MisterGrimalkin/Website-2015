@@ -21,10 +21,8 @@
 <?php
 
     include("common.php");
+    build();
 
-    function subNav($content) {
-        return "<nav id='section' class='subnav'>$content</nav>";
-    }
 
     function backLink($section = "") {
         $href = "index.php";
@@ -45,32 +43,39 @@
         if ( $extramargin ) {
             $result .= " style='margin-left: 20px;'";
         }
-        $result .=">$content</div>";
+        $result .= ">$content</div>";
         return $result;
     }
 
     function sectionIndex($section) {
-        $result = "
-            <nav id='nav-$section' class='subnav'>
-        ";
 
+        $result = "";
+        $nav_started = false;
 
-        $shortcuts = array();
-
-        $conn = open_connection();
-
+        $conn = open_connection("config");
         $sql = "SELECT * FROM Story WHERE UPPER(section) = '" . strtoupper($section) . "' ORDER BY rank";
         $query_result = $conn->query($sql);
+        $conn->close();
+
         if ($query_result->num_rows > 0) {
             while($story = $query_result->fetch_assoc()) {
-                $result .= pageLink($story);
+                if ( $story["rank"]==0 ) {
+                    $result .= $story["content"];
+                } else {
+                    if ( !$nav_started ) {
+                        $result .= "<nav id='nav-$section' class='subnav'>";
+                        $nav_started = true;
+                    }
+                    $result .= pageLink($story);
+                }
             }
         } else {
             $result .= "No Stories Found<br>";
         }
 
-        $conn->close();
-        $result .= "</nav>";
+        if ( $nav_started ) {
+            $result .= "</nav>";
+        }
 
         return $result;
     }
@@ -102,39 +107,24 @@
             redirect("index.php");
         } else {
             if ( !$storyid ) {
-                echo content(
-                    file_get_contents("content/$section.html")
-                    .
-                    sectionIndex($section)
-                , true);
+                echo content(sectionIndex($section), true);
             } else {
-                $conn = open_connection();
-
+                $conn = open_connection("config");
                 $sql = "SELECT * FROM Story WHERE story_id=" . $storyid;
-
                 $result = $conn->query($sql);
+                $conn->close();
 
                 $story = $result->fetch_assoc();
                 $content = $story["content"];
                 if ( strtoupper($section) == strtoupper($story["section"]) ) {
-                    echo
-                        backLink($section)
-                        .
-                        content($content);
+                    echo backLink($section) . content($content);
                 } else {
-                    echo content(
-                    file_get_contents("content/$section.html")
-                    .
-                    sectionIndex($section)
-                    , true);
+                    echo content(sectionIndex($section), true);
                 }
 
-                $conn->close();
             }
         }
     }
-
-    build();
 
 ?>
 
