@@ -13,9 +13,9 @@
     <link rel="stylesheet" type="text/css" href="barrimason.css">
     <link rel="shortcut icon" href="images/bm.ico">
 
+    <script src="barrimason.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="barrimason.js"></script>
 
 </head>
 
@@ -26,6 +26,24 @@
     <script>
         angular.module("bmapp", []).controller("bmcontroller", buildController);
     </script>
+
+    <div id="robotFriendlyLinks" style="display: none;">
+        <?php
+            include("common.php");
+            $conn = open_connection("config");
+            $sql = "SELECT * FROM Story ORDER BY section, rank";
+            $query_result = $conn->query($sql);
+            $conn->close();
+            if ($query_result->num_rows > 0) {
+                while($story = $query_result->fetch_assoc()) {
+                    $section = strtolower($story["section"]);
+                    $story_id = $story["story_id"];
+                    $title = $story["title"];
+                    echo "\n<a href='content.php?section=$section&storyid=$story_id'>$title</a>\n";
+                }
+            }
+        ?>
+    </div>
 
     <header id="logobar" class="logo">
         <img
@@ -46,15 +64,15 @@
              data-ng-mouseleave="rollover(side, 'out');"
              data-ng-mousedown="rollover(side, 'selected');"
              data-ng-click="navigateTo(side);"
-             title="Shortcut: {{side}} cursor"
+             title="Shortcut Key: {{side}} cursor"
              border="0" alt="">
     </nav>
 
-    <div data-ng-repeat="(side, name) in names"
+    <aside data-ng-repeat="(side, name) in names"
          id={{pic+side}}
          class={{sidebar+side}}>
         <img src="" data-ng-src={{images+pic+side+png}} width="300" height="400">
-    </div>
+    </aside>
 
     <iframe data-ng-repeat="(side, name) in names"
             id={{content+side}}
@@ -65,6 +83,7 @@
     </iframe>
 
 </div>
+
 
 </body>
 

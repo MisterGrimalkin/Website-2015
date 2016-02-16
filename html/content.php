@@ -10,9 +10,9 @@
 
     <link rel="stylesheet" type="text/css" href="barrimason.css">
 
+    <script src="barrimason.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="barrimason.js"></script>
 
 </head>
 
@@ -31,7 +31,7 @@
         }
         return "
             <nav class='backlink'>
-                <a id='back-$section' href='$href' target='_parent' title='Return to Menu (Shortcut: 0)'>
+                <a id='back-$section' href='$href' target='_parent' title='Return to Menu (Shortcut Key: 0)'>
                     <img src='images/back-small.jpg' />
                 </a>
             </nav>
@@ -39,11 +39,11 @@
     }
 
     function content($content, $extramargin = false) {
-        $result = "<div class='content'";
+        $result = "\n<section class='content'";
         if ( $extramargin ) {
             $result .= " style='margin-left: 20px;'";
         }
-        $result .= ">$content</div>";
+        $result .= ">\n$content\n</section>\n";
         return $result;
     }
 
@@ -59,22 +59,31 @@
 
         if ($query_result->num_rows > 0) {
             while($story = $query_result->fetch_assoc()) {
+
                 if ( $story["rank"]==0 ) {
-                    $result .= $story["content"];
+
+                    $result .= "\n<article>\n".$story["content"]."\n</article>\n";
+
                 } else {
+
                     if ( !$nav_started ) {
-                        $result .= "<nav id='nav-$section' class='subnav'>";
+                        $result .= "\n<nav id='nav-$section' class='subnav'>\n";
                         $nav_started = true;
                     }
+
                     $result .= pageLink($story);
+
                 }
+
             }
         } else {
-            $result .= "No Stories Found<br>";
+
+            $result .= "\n<h1>No Content Found</h1>\n";
+
         }
 
         if ( $nav_started ) {
-            $result .= "</nav>";
+            $result .= "\n</nav>\n";
         }
 
         return $result;
@@ -93,7 +102,7 @@
         $elem_id = "pagelink-$section-$rank";
 
         return "
-            <a id='$elem_id' href='$href' target='_parent' title='$title (Shortcut: $rank)'>
+            <a id='$elem_id' href='$href' target='_parent' title='$title (Shortcut Key: $rank)'>
                 <div class='subnavlink' style='background-image: url(\"$image_src\");'></div>
             </a>
         ";
@@ -104,22 +113,31 @@
         $storyid = $_GET["storyid"];
 
         if ( $section=="" ) {
+
             redirect("index.php");
+
         } else {
             if ( !$storyid ) {
+
                 echo content(sectionIndex($section), true);
+
             } else {
+
                 $conn = open_connection("config");
                 $sql = "SELECT * FROM Story WHERE story_id=" . $storyid;
                 $result = $conn->query($sql);
                 $conn->close();
 
                 $story = $result->fetch_assoc();
-                $content = $story["content"];
+
                 if ( strtoupper($section) == strtoupper($story["section"]) ) {
-                    echo backLink($section) . content($content);
+
+                    echo backLink($section) . content($story["content"]);
+
                 } else {
+
                     echo content(sectionIndex($section), true);
+
                 }
 
             }

@@ -32,9 +32,7 @@ function buildController($scope) {
         });
 
         initShortcuts();
-
         $(window).keydown(processShortcut);
-
 //        $(document.getElementById('content-left').contentWindow.document).keydown(function(){ window.alert('Key down!'); });
 
         var section = getQueryString().section;
@@ -239,7 +237,7 @@ function preloadImages() {
             loadImage("images/"+names[side]+"-out.gif");
         }
 
-        loadImage("images/back.jpg");
+        loadImage("images/back-small.jpg");
 	}
 
 }
