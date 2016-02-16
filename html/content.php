@@ -132,7 +132,7 @@
 
                 if ( strtoupper($section) == strtoupper($story["section"]) ) {
 
-                    echo backLink($section) . content($story["content"]);
+                    echo backLink($section) . content("\n<article>\n".$story["content"]."\n</article>\n");
 
                 } else {
 
