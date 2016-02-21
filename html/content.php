@@ -112,7 +112,7 @@
 
         if ( !$section ) {
 
-            redirect("index.php");
+            header("Location: ../index.php?section=musician");
 
         } else {
             if ( !$storyid ) {
