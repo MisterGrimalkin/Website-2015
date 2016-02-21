@@ -32,7 +32,7 @@
         return "
             <nav class='backlink'>
                 <a id='back-$section' href='$href' target='_parent' title='Return to Menu (Shortcut Key: 0)'>
-                    <img src='images/back-small.jpg' />
+                    <img src='images2/back-small.jpg' />
                 </a>
             </nav>
         ";
@@ -50,9 +50,9 @@
     function sectionIndex($section) {
 
         $result = "";
-        $nav_started = false;
+        $navStarted = false;
 
-        $conn = open_connection("config");
+        $conn = openConnection();
         $sql = "SELECT * FROM Story WHERE UPPER(section) = '" . strtoupper($section) . "' ORDER BY rank";
         $query_result = $conn->query($sql);
         $conn->close();
@@ -62,13 +62,13 @@
 
                 if ( $story["rank"]==0 ) {
 
-                    $result .= "\n<article>\n".$story["content"]."\n</article>\n";
+                    $result .= "\n<article>\n{$story["content"]}\n</article>\n";
 
                 } else {
 
-                    if ( !$nav_started ) {
+                    if ( !$navStarted ) {
                         $result .= "\n<nav id='nav-$section' class='subnav'>\n";
-                        $nav_started = true;
+                        $navStarted = true;
                     }
 
                     $result .= pageLink($story);
@@ -82,7 +82,7 @@
 
         }
 
-        if ( $nav_started ) {
+        if ( $navStarted ) {
             $result .= "\n</nav>\n";
         }
 
@@ -109,10 +109,11 @@
     }
 
     function build() {
-        $section = $_GET["section"];
-        $storyid = $_GET["storyid"];
 
-        if ( $section=="" ) {
+        $section = @$_GET["section"];
+        $storyid = @$_GET["storyid"];
+
+        if ( !$section ) {
 
             redirect("index.php");
 
@@ -123,7 +124,7 @@
 
             } else {
 
-                $conn = open_connection("config");
+                $conn = openConnection();
                 $sql = "SELECT * FROM Story WHERE story_id=" . $storyid;
                 $result = $conn->query($sql);
                 $conn->close();
@@ -132,7 +133,7 @@
 
                 if ( strtoupper($section) == strtoupper($story["section"]) ) {
 
-                    echo backLink($section) . content("\n<article>\n".$story["content"]."\n</article>\n");
+                    echo backLink($section) . content("\n<article>\n{$story["content"]}\n</article>\n");
 
                 } else {
 
@@ -145,7 +146,6 @@
     }
 
 ?>
-
 
 </body>
 

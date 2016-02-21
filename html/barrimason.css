@@ -15,12 +15,23 @@ body {
 	color: white;
 }
 
+section {
+    margin: 0px;
+    padding: 0px;
+}
+
+article {
+    margin: 0px;
+    padding: 0px;
+}
+
 h1 {
     font-weight: bold;
 	font-size: x-large;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-style: italic;
     margin-left: 0px;
+    margin-top: 16px;
 }
 
 h2 {

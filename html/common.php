@@ -1,8 +1,8 @@
 <?php
 
-function load_properties($path) {
+function loadProperties() {
     $properties = array();
-    $filename = $path."/connection.properties";
+    $filename = $_SERVER['DOCUMENT_ROOT']."/config/connection.properties";
     if ( file_exists($filename) ) {
         $propfile = fopen($filename, "r");
         while ( !feof($propfile) ) {
@@ -16,9 +16,9 @@ function load_properties($path) {
     return $properties;
 }
 
-function open_connection($path) {
+function openConnection() {
     try {
-        $properties = load_properties($path);
+        $properties = loadProperties();
         $conn = new mysqli(
             $properties["host"],
             $properties["username"],
@@ -33,12 +33,4 @@ function open_connection($path) {
         die("<i><h1>Database Connection Failed!</h1>ERROR-CODE: 54321 (Server Responded: 'I really cannot deal with this sh*t right now')</i>");
     }
     return $conn;
-}
-
-function redirect($target) {
-    echo "
-    <script>
-        window.location.assign('$target');
-    </script>
-    ";
 }

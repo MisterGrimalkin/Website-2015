@@ -131,16 +131,16 @@ function scrollContentBottom() {
 
 function rollover(side, state) {
     if ( side!==currentSide ) {
-        $("#link-"+side).attr("src", "images/"+names[side]+"-"+state+".gif");
+        $("#link-"+side).attr("src", "images2/"+names[side]+"-"+state+".gif");
     }
 }
 
 function triggerLogoAnimation() {
-    $("#logo").attr("src", "images/barrimason-logo-animation.gif");
+    $("#logo").attr("src", "images2/barrimason-logo-animation.gif");
 }
 
 function cancelLogoAnimation() {
-    $("#logo").attr("src", "images/barrimason-logo.gif");
+    $("#logo").attr("src", "images2/barrimason-logo.gif");
 }
 
 ////////////////
@@ -167,13 +167,13 @@ function navigateTo(side, instant) {
     var rightPicStyle = "sidebar right";
 
     if ( currentSide!=="" ) {
-        $("#link-"+currentSide).attr("src", "images/" + names[currentSide] + "-out.gif");
+        $("#link-"+currentSide).attr("src", "images2/" + names[currentSide] + "-out.gif");
     }
 
     if ( instant ) {
-        $("#link-"+side).attr("src", "images/" + names[side] + "-active.gif");
+        $("#link-"+side).attr("src", "images2/" + names[side] + "-active.gif");
     } else {
-        $("#link-"+side).attr("src", "images/" + names[side] + "-selected.gif");
+        $("#link-"+side).attr("src", "images2/" + names[side] + "-selected.gif");
     }
 
     var active = ( instant ? "instant" : "" ) + "active";
@@ -189,7 +189,7 @@ function navigateTo(side, instant) {
             rightContentStyle = "content-frame active right";
         }
     } else {
-        $("#link-"+side).attr("src", "images/" + names[side] + "-out.gif");
+        $("#link-"+side).attr("src", "images2/" + names[side] + "-out.gif");
         side = "";
     }
 
@@ -245,17 +245,17 @@ function preloadImages() {
 
 	if (document.images) {
 
-        loadImage("images/barrimason-logo-animation.gif");
+        loadImage("images2/barrimason-logo-animation.gif");
 
         for ( side in names ) {
-            loadImage("images/"+names[side]+".gif");
-            loadImage("images/"+names[side]+"-active.gif");
-            loadImage("images/"+names[side]+"-selected.gif");
-            loadImage("images/"+names[side]+"-over.gif");
-            loadImage("images/"+names[side]+"-out.gif");
+            loadImage("images2/"+names[side]+".gif");
+            loadImage("images2/"+names[side]+"-active.gif");
+            loadImage("images2/"+names[side]+"-selected.gif");
+            loadImage("images2/"+names[side]+"-over.gif");
+            loadImage("images2/"+names[side]+"-out.gif");
         }
 
-        loadImage("images/back-small.jpg");
+        loadImage("images2/back-small.jpg");
 
 	}
 

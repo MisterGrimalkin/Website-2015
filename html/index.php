@@ -11,7 +11,7 @@
     <title>Barri Mason</title>
 
     <link rel="stylesheet" type="text/css" href="barrimason.css">
-    <link rel="shortcut icon" href="images/bm.ico">
+    <link rel="shortcut icon" href="images2/bm.ico">
 
     <script src="barrimason.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -30,7 +30,7 @@
     <div id="robotFriendlyLinks" style="display: none;">
         <?php
             include("common.php");
-            $conn = open_connection("config");
+            $conn = openConnection();
             $sql = "SELECT * FROM Story ORDER BY section, rank";
             $query_result = $conn->query($sql);
             $conn->close();
@@ -47,7 +47,7 @@
 
     <header id="logobar" class="logo">
         <img
-                id="logo" src="images/barrimason-logo.gif"
+                id="logo" src="images2/barrimason-logo.gif"
                 onclick="navigateTo('');"
                 onmouseover="triggerLogoAnimation();"
                 onmouseout="cancelLogoAnimation();"
@@ -59,7 +59,7 @@
              id="link-{{side}}"
              class="navlink {{side}}"
              src=""
-             data-ng-src="images/{{name}}.gif"
+             data-ng-src="images2/{{name}}.gif"
              data-ng-mouseenter="rollover(side, 'over');"
              data-ng-mouseleave="rollover(side, 'out');"
              data-ng-mousedown="rollover(side, 'selected');"
@@ -71,7 +71,7 @@
     <aside data-ng-repeat="(side, name) in names"
          id="pic-{{side}}"
          class="sidebar {{side}}">
-        <img src="" data-ng-src="images/pic-{{side}}.png" width="300" height="400">
+        <img src="" data-ng-src="images2/pic-{{side}}.png" width="300" height="400">
     </aside>
 
     <iframe data-ng-repeat="(side, name) in names"

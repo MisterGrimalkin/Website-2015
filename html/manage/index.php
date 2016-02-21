@@ -12,9 +12,9 @@
 
 include("../common.php");
 
-$conn = open_connection("../config");
+$conn = openConnection();
 
-$storyId = $_GET["storyid"];
+$storyId = @$_GET["storyid"];
 if ( !$storyId ) {
     build_menu($conn);
 } elseif ( strtoupper($storyId)=="NEW" ) {
