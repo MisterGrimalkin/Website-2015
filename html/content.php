@@ -38,12 +38,9 @@
         ";
     }
 
-    function content($content, $extramargin = false) {
-        $result = "\n<section class='content'";
-        if ( $extramargin ) {
-            $result .= " style='margin-left: 20px;'";
-        }
-        $result .= ">\n$content\n</section>\n";
+    function content($content, $extraMargin = false) {
+        $addStyle = ( $extraMargin ? "style='margin-left: 20px;'" : "" );
+        $result = "\n<section class='content' $addStyle>\n$content\n</section>\n";
         return $result;
     }
 
@@ -125,7 +122,7 @@
             } else {
 
                 $conn = openConnection();
-                $sql = "SELECT * FROM Story WHERE story_id=" . $storyid;
+                $sql = "SELECT * FROM Story WHERE story_id=$storyid";
                 $result = $conn->query($sql);
                 $conn->close();
 
