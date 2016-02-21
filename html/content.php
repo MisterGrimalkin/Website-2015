@@ -112,7 +112,7 @@
 
         if ( !$section ) {
 
-            header("Location: ../index.php?section=musician");
+            header("Location: index.php?section=musician");
 
         } else {
             if ( !$storyid ) {
