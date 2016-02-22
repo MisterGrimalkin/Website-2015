@@ -1,20 +1,6 @@
 <html>
-<head lang="en">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <meta charset="UTF-8">
-    <meta name="robots" content="index, follow">
-    <base target="_blank">
-
-    <title>Barri Mason</title>
-
-    <link rel="stylesheet" type="text/css" href="barrimason.css">
-
-    <script src="barrimason.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-</head>
+<?php include("header.php");?>
 
 <body>
 
@@ -23,25 +9,18 @@
     include("common.php");
     build();
 
-
     function backLink($section = "") {
         $href = "index.php";
         if ( $section != "" ) {
             $href .= "?section=$section&storyid=menu";
         }
-        return "
-            <nav class='backlink'>
-                <a id='back-$section' href='$href' target='_parent' title='Return to Menu (Shortcut Key: 0)'>
-                    <img src='images2/back-small.jpg' />
-                </a>
-            </nav>
-        ";
+        $img = wrapStandalone("img", ["src"=>"images2/back-small.jpg"], true);
+        $anchor = wrap("a", ["id"=>"back-$section", "href"=>$href, "target"=>"_parent", "title"=>"Return to Menu (Shortcut Key: 0)"], indent($img), false, true);
+        return wrap("nav", ["class"=>"backlink"], indent($anchor), false, true);
     }
 
     function content($content, $extraMargin = false) {
-        $addStyle = ( $extraMargin ? "style='margin-left: 20px;'" : "" );
-        $result = "\n<section class='content' $addStyle>\n$content\n</section>\n";
-        return $result;
+        return section($content, "content", ($extraMargin ? "margin-left: 20px;" : ""));
     }
 
     function sectionIndex($section) {
@@ -54,17 +33,17 @@
         $query_result = $conn->query($sql);
         $conn->close();
 
-        if ($query_result->num_rows > 0) {
-            while($story = $query_result->fetch_assoc()) {
+        if ( $query_result->num_rows > 0 ) {
+            while( $story = $query_result->fetch_assoc() ) {
 
                 if ( $story["rank"]==0 ) {
 
-                    $result .= "\n<article>\n{$story["content"]}\n</article>\n";
+                    $result .= article($story["content"]);
 
                 } else {
 
                     if ( !$navStarted ) {
-                        $result .= "\n<nav id='nav-$section' class='subnav'>\n";
+                        $result .= wrapStart("nav", ["id"=>"nav-$section", "class"=>"subnav"]);
                         $navStarted = true;
                     }
 
@@ -75,12 +54,12 @@
             }
         } else {
 
-            $result .= "\n<h1>No Content Found</h1>\n";
+            $result .= wrap("h1", [], "No Content Found", true);
 
         }
 
         if ( $navStarted ) {
-            $result .= "\n</nav>\n";
+            $result .= wrapEnd("nav");
         }
 
         return $result;
@@ -98,11 +77,9 @@
 
         $elem_id = "pagelink-$section-$rank";
 
-        return "
-            <a id='$elem_id' href='$href' target='_parent' title='$title (Shortcut Key: $rank)'>
-                <div class='subnavlink' style='background-image: url(\"$image_src\");'></div>
-            </a>
-        ";
+        return wrap("a", ["id"=>$elem_id, "href"=>$href, "target"=>"_parent", "title"=>"$title (Shortcut Key: $rank)"],
+            indent(div("", "subnavlink", "background-image: url(\"$image_src\")")));
+
     }
 
     function build() {
@@ -130,7 +107,7 @@
 
                 if ( strtoupper($section) == strtoupper($story["section"]) ) {
 
-                    echo backLink($section) . content("\n<article>\n{$story["content"]}\n</article>\n");
+                    echo backLink($section) . content(article($story["content"]));
 
                 } else {
 
