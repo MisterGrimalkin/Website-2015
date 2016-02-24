@@ -6,7 +6,7 @@
 
 function loadProperties() {
     $properties = array();
-    $filename = $_SERVER['DOCUMENT_ROOT']."/config/connection.properties";
+    $filename = $_SERVER['DOCUMENT_ROOT']."/../config/connection.properties";
     if ( file_exists($filename) ) {
         $propfile = fopen($filename, "r");
         while ( !feof($propfile) ) {

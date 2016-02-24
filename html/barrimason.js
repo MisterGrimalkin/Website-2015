@@ -28,6 +28,19 @@ function buildController($scope) {
         initShortcuts();
         $(window).keydown(processShortcut);
 
+        $('#content-left').load(function(){
+            if ( currentSide==="left" ) {
+                $("#content-left").attr("class", "content-frame active left");
+                $("#content-right").attr("class", "content-frame right inactive");
+            }
+        });
+        $('#content-right').load(function(){
+            if ( currentSide==="right" ) {
+                $("#content-right").attr("class", "content-frame active right");
+                $("#content-left").attr("class", "content-frame left inactive");
+            }
+        });
+
         var section = getQueryString().section;
         var side = getSide(section);
         var page = getQueryString().storyid;
@@ -188,11 +201,19 @@ function navigateTo(side, instant) {
         if ( side==="left") {
             leftLinkStyle = "navlink left " + active;
             leftPicStyle = "sidebar left " + active;
-            leftContentStyle = "content-frame active left";
+            if ( instant ) {
+//                leftContentStyle = "content-frame loading";
+            } else {
+                leftContentStyle = "content-frame active left";
+            }
         } else if ( side==="right" ) {
             rightLinkStyle = "navlink right " + active;
             rightPicStyle = "sidebar right " + active;
-            rightContentStyle = "content-frame active right";
+            if ( instant ) {
+//                rightContentStyle = "content-frame loading";
+            } else {
+                rightContentStyle = "content-frame active right";
+            }
         }
     } else {
         $("#link-"+side).attr("src", "images2/" + names[side] + "-out.gif");

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html data-ng-app="bmapp" >
 
-<?php include("header.php");?>
+<?php
+    set_include_path(get_include_path().PATH_SEPARATOR.$_SERVER["DOCUMENT_ROOT"]."/includes");
+    include("header.php");
+?>
 
 <body>
 
@@ -60,7 +63,7 @@
 
     <iframe data-ng-repeat="(side, name) in names"
             id="content-{{side}}"
-            name="content-{{side}}"
+            name="content{{side}}"
             class="content-frame"
             data-ng-src={{"content.php?section="+names[side]}}
             frameborder="0">

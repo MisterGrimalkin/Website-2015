@@ -1,6 +1,9 @@
 <html>
 
-<?php include("header.php");?>
+<?php
+    set_include_path(get_include_path().PATH_SEPARATOR.$_SERVER["DOCUMENT_ROOT"]."/includes");
+    include("header.php");
+?>
 
 <body>
 
@@ -8,6 +11,7 @@
 
     include("common.php");
     build();
+
 
     function parentTitle($title) {
         return wrap("script",[],"parent.document.title='$title';");
@@ -93,7 +97,7 @@
 
         if ( !$section ) {
 
-            header("Location: index.php");
+            header("Location: /");
 
         } else {
             if ( !$storyid ) {
