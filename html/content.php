@@ -9,6 +9,10 @@
     include("common.php");
     build();
 
+    function parentTitle($title) {
+        return wrap("script",[],"parent.document.title='$title';");
+    }
+
     function backLink($section = "") {
         $href = "index.php";
         if ( $section != "" ) {
@@ -107,7 +111,7 @@
 
                 if ( strtoupper($section) == strtoupper($story["section"]) ) {
 
-                    echo backLink($section) . content(article($story["content"]));
+                    echo parentTitle("Barri Mason - {$story['title']}") . backLink($section) . content(article($story["content"]));
 
                 } else {
 

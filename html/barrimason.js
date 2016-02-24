@@ -199,6 +199,7 @@ function navigateTo(side, instant) {
         side = "";
     }
 
+    var title = names[side];
     if ( side==="left" ) {
         $("#navbar").attr("class", "navbar " + active);
         $("#link-left").css("opacity", 1);
@@ -212,6 +213,7 @@ function navigateTo(side, instant) {
         $("#navbar").attr("class", "navbar");
         $("#link-left").css("opacity", 1);
         $("#link-right").css("opacity", 1);
+        title = "Musician & Coder";
     }
 
     $("#content-left").attr("class", leftContentStyle);
@@ -220,6 +222,8 @@ function navigateTo(side, instant) {
     $("#link-right").attr("class", rightLinkStyle);
     $("#pic-left").attr("class", leftPicStyle);
     $("#pic-right").attr("class", rightPicStyle);
+
+    document.title = "Barri Mason - " + title.charAt(0).toUpperCase() + title.slice(1);
 
     currentSide = side;
 
