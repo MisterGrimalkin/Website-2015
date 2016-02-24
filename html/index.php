@@ -13,7 +13,6 @@
 
     <div id="robotFriendlyLinks" style="display: none;">
         <?php
-            $pageTitle = "Dangly Wang";
             include("common.php");
             $conn = openConnection();
             $sql = "SELECT * FROM Story ORDER BY section, rank";
